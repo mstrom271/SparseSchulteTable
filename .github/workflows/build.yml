@@ -27,6 +27,7 @@ jobs:
           arch: 'gcc_64'
           cache: 'true'
           cache-key-prefix: 'install-qt-action'
+          modules: 'multimedia'
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
@@ -84,6 +85,7 @@ jobs:
           arch: 'win64_mingw'
           cache: 'true'
           cache-key-prefix: 'install-qt-action'
+          modules: 'multimedia'
       - name: Install Conan
         id: conan
         uses: turtlebrowser/get-conan@main
@@ -130,6 +132,7 @@ jobs:
           arch: 'gcc_64'
           cache: 'true'
           cache-key-prefix: 'install-qt-action'
+          modules: 'multimedia'
       - name: Install Conan
         id: conan
         uses: turtlebrowser/get-conan@main
