@@ -38,6 +38,7 @@ jobs:
           arch: 'android_arm64_v8a'
           cache: 'true'
           cache-key-prefix: 'install-qt-action'
+          modules: 'qtmultimedia'
       - name: Install Conan
         id: conan
         uses: turtlebrowser/get-conan@main
