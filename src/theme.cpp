@@ -1,29 +1,14 @@
 #include "theme.h"
 #include <QApplication>
-#include <QDebug>
-#include <QSettings>
+#include <QStringList>
 #include <QWidget>
 
-Theme::Theme() {
-    QSettings settings;
-    currentTheme = settings.value("/theme", list[1]).toString();
-    if (!list.contains(currentTheme))
-        currentTheme = list[1];
+Theme::Theme() {}
+
+Theme &Theme::getInstance() {
+    static Theme instance;
+    return instance;
 }
-
-void Theme::setTheme(QString newThemeName) {
-    if (!list.contains(newThemeName))
-        newThemeName = list[1];
-
-    QSettings settings;
-    settings.setValue("/theme", newThemeName);
-
-    currentTheme = newThemeName;
-}
-
-QString Theme::getTheme() { return currentTheme; }
-
-QStringList Theme::getList() { return list; }
 
 // notify all widgets to change a theme
 void Theme::notifyAll() {
@@ -31,4 +16,27 @@ void Theme::notifyAll() {
     for (auto widget : allWidgets) {
         QApplication::instance()->postEvent(widget, new ThemeChangeEvent);
     }
+}
+
+void Theme::applyTheme(QString theme) {
+    // TODO:
+    // static_cast<QApplication
+    // *>(QApplication::instance())->setStyleSheet(style);
+}
+
+QString Theme::getSystemTheme() {
+    // TODO:
+    return correct("DarkTheme");
+}
+
+QStringList Theme::getThemeList() {
+    return {"DarkTheme", "GreyTheme", "LightTheme"};
+}
+
+// check if theme is allowed. Return default, if theme is incorrect
+QString Theme::correct(QString theme) {
+    QStringList themeAllowed = getThemeList();
+    if (!themeAllowed.contains(theme))
+        return themeAllowed.front();
+    return theme;
 }

@@ -1,81 +1,101 @@
 #pragma once
 
-#include "language.h"
-#include "sound.h"
-#include "stats.h"
-#include "theme.h"
 #include <QFont>
+#include <QMap>
+#include <QSettings>
+#include <QVector>
 
-enum class TableStyle { SparseTable, ClassicTable };
-QString serializeTableStyle(TableStyle tableStyle);
-TableStyle deSerializeTableStyle(QString s);
-
-enum class CentralPointStyle { None, GreenDot, EyePic };
-QString serializeCentralPointStyle(CentralPointStyle centralPointStyle);
-CentralPointStyle deSerializeCentralPointStyle(QString s);
+enum class TableStyleT { SparseTable, ClassicTable };
+enum class CentralPointStyleT { None, GreenDot, EyePic };
 
 class Settings {
-    Language language;
-    Theme theme;
-    Stats stats;
-    Sound sound;
+    QSettings settings;
 
-    int numCells;
-    int tableScale;
+    bool FirstRun;
+    QString Language;
+    QString Theme;
+    QMap<int, QList<int>> Stat;
+    int NumCells;
+    int TableScale;
+    int FontMaxSize;
+    bool KeepAwake;
+    bool ShowTimer;
+    bool ClickSound;
+    TableStyleT TableStyle;
+    CentralPointStyleT CentralPointStyle;
 
-    bool firstRun;
-    int fontMaxSize;
-    bool keepAwake;
-    bool showTimer;
-    TableStyle tableStyle;
-    CentralPointStyle centralPointStyle;
+    // Temporary settings
+    QVector<int> NumCellsRangeCache;
+    double LogicalDPI;
+    QFont Font1, Font2, Font3, Font4;
+    long long SeedForSchulte;
 
-    QVector<int> numCellsRangeCache;
-    QFont font1, font2, font3, font4;
-    double logicalDPI;
-    long long seedForSchulte;
-
-  public:
     Settings();
+    Settings(const Settings &) = delete;
+    Settings &operator=(const Settings &) = delete;
     void upgradeOldSettings();
 
-    Language &getLanguage();
-    Theme &getTheme();
-    Stats &getStats();
-    Sound &getSound();
+  public:
+    static Settings &getInstance();
 
-    int getNumCells() const;
-    void setNumCells(int newNumCells);
-    QVector<int> &getNumCellsRange();
-    void initNumCellsRange();
-    int correctNumCells(int numCells);
+    static bool getFirstRun();
 
-    bool getFirstRun() const;
-    int getFontMaxSize() const;
-    void setFontMaxSize(int newFontMaxSize);
-    bool getShowTimer() const;
-    void setShowTimer(bool newShowTimer);
-    TableStyle getTableStyle() const;
-    void setTableStyle(TableStyle newTableStyle);
-    bool getKeepAwake() const;
-    void setKeepAwake(bool newKeepAwake);
+    static QString getLanguage();
+    static void setLanguage(QString newLanguage);
 
-    const QFont &getFont1() const;
-    void setFont1(const QFont &newFont1);
-    const QFont &getFont2() const;
-    void setFont2(const QFont &newFont2);
-    const QFont &getFont3() const;
-    void setFont3(const QFont &newFont3);
-    const QFont &getFont4() const;
-    void setFont4(const QFont &newFont4);
-    double getLogicalDPI() const;
-    void setLogicalDPI(double newLogicalDPI);
-    CentralPointStyle getCentralPointStyle() const;
-    void setCentralPointStyle(CentralPointStyle newCentralPointStyle);
-    QSize getWindowSize();
-    int getTableScale() const;
-    void setTableScale(int newTableScale);
-    long long getSeedForSchulte() const;
-    void setSeedForSchulte(long long newSeedForSchulte);
-    void generateSeedForSchulte();
+    static QString getTheme();
+    static void setTheme(QString newTheme);
+
+    static QList<int> getTableStat(int table);
+    static void setTableStat(int table, QList<int> newStat);
+    static void addTableStat(int table, int score);
+    static void removeLastTableStat(int table);
+    static void removeAllTableStat(int table);
+
+    static int getNumCells();
+    static void setNumCells(int newNumCells);
+
+    static int getTableScale();
+    static void setTableScale(int newTableScale);
+
+    static int getFontMaxSize();
+    static void setFontMaxSize(int newFontMaxSize);
+
+    static bool getKeepAwake();
+    static void setKeepAwake(bool newKeepAwake);
+
+    static bool getShowTimer();
+    static void setShowTimer(bool newShowTimer);
+
+    static bool getClickSound();
+    static void setClickSound(bool newClickSound);
+
+    static TableStyleT getTableStyle();
+    static void setTableStyle(TableStyleT newTableStyle);
+
+    static CentralPointStyleT getCentralPointStyle();
+    static void setCentralPointStyle(CentralPointStyleT newCentralPointStyle);
+
+    // Temporary settings
+    static QSize getWindowSize();
+
+    static QVector<int> getNumCellsRangeCache();
+    void initNumCellsRangeCache();
+    static int correctNumCells(int newNumCells);
+
+    static double getLogicalDPI();
+    static void setLogicalDPI(double newLogicalDPI);
+
+    static QFont getFont1();
+    static void setFont1(QFont newFont1);
+    static QFont getFont2();
+    static void setFont2(QFont newFont2);
+    static QFont getFont3();
+    static void setFont3(QFont newFont3);
+    static QFont getFont4();
+    static void setFont4(QFont newFont4);
+
+    static long long getSeedForSchulte();
+    static void setSeedForSchulte(long long newSeedForSchulte);
+    static void generateSeedForSchulte();
 };

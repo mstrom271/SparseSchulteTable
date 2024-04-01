@@ -1,9 +1,7 @@
 #pragma once
 
+#include "settings.h"
 #include <QString>
-
-enum class TableStyleT { SparseTable, ClassicTable };
-enum class CentralPointStyleT { None, GreenDot, EyePic };
 
 QString serializeTableStyle(TableStyleT TableStyle);
 TableStyleT deSerializeTableStyle(QString str);

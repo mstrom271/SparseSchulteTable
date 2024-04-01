@@ -2,7 +2,6 @@
 
 #include "keepawakehelper.h"
 #include "schultewidget.h"
-#include "settings.h"
 #include <QLabel>
 #include <QLayout>
 #include <QPushButton>
@@ -12,8 +11,6 @@
 
 class ExerciseWidget : public QWidget {
     Q_OBJECT
-
-    Settings *settings;
 
     QVBoxLayout *vLayout;
     QLabel *timerLabel;
@@ -35,7 +32,7 @@ class ExerciseWidget : public QWidget {
     virtual void showEvent(QShowEvent *event) override;
 
   public:
-    ExerciseWidget(Settings *newSettings, QWidget *wgt = nullptr);
+    ExerciseWidget(QWidget *wgt = nullptr);
 
   public slots:
     void updateTime();

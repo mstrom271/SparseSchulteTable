@@ -1,4 +1,7 @@
 #include "exercisewidget.h"
+#include "language.h"
+#include "settings.h"
+#include "theme.h"
 #include <chrono>
 
 using deciseconds = std::chrono::duration<long long, std::ratio<1, 10>>;
@@ -20,11 +23,11 @@ bool ExerciseWidget::event(QEvent *event) {
 }
 
 void ExerciseWidget::resizeEvent(QResizeEvent *event) {
-    cancelBtn->setMinimumHeight(settings->getLogicalDPI() * 0.15);
-    cancelBtn->setMaximumHeight(settings->getLogicalDPI() * 0.25);
+    cancelBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.15);
+    cancelBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
 
-    doneBtn->setMinimumHeight(settings->getLogicalDPI() * 0.15);
-    doneBtn->setMaximumHeight(settings->getLogicalDPI() * 0.25);
+    doneBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.15);
+    doneBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
 
     QWidget::resizeEvent(event);
 }
@@ -39,14 +42,13 @@ void ExerciseWidget::showEvent(QShowEvent *event) {
         std::chrono::duration_cast<deciseconds>(now.time_since_epoch()).count();
 
     doneBtn->setText(tr("Done") + ": " + QString::number(0) + "/" +
-                     QString::number(settings->getNumCells()));
-    schulteWgt->generate(settings->getSeedForSchulte());
+                     QString::number(Settings::getInstance().getNumCells()));
+    schulteWgt->generate(Settings::getInstance().getSeedForSchulte());
 
     QWidget::showEvent(event);
 }
 
-ExerciseWidget::ExerciseWidget(Settings *newSettings, QWidget *wgt)
-    : QWidget(wgt), settings(newSettings) {
+ExerciseWidget::ExerciseWidget(QWidget *wgt) : QWidget(wgt) {
     vLayout = new QVBoxLayout;
     QWidget *spacer = new QWidget;
     spacer->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
@@ -54,23 +56,23 @@ ExerciseWidget::ExerciseWidget(Settings *newSettings, QWidget *wgt)
     vLayout->addWidget(spacer);
 
     timerLabel = new QLabel;
-    timerLabel->setFont(settings->getFont3());
+    timerLabel->setFont(Settings::getInstance().getFont3());
     timerLabel->setAttribute(Qt::WA_TranslucentBackground);
     timerLabel->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
     vLayout->addWidget(timerLabel, 1);
 
     cancelBtn = new QPushButton;
-    cancelBtn->setFont(settings->getFont3());
+    cancelBtn->setFont(Settings::getInstance().getFont3());
     connect(cancelBtn, SIGNAL(clicked()), SLOT(cancelSlot()));
     vLayout->addWidget(cancelBtn, 1);
 
-    schulteWgt = new SchulteWidget(settings, false);
+    schulteWgt = new SchulteWidget(false);
     connect(schulteWgt, SIGNAL(pressedNumber(int)), SLOT(pressedNumber(int)));
     connect(schulteWgt, SIGNAL(done()), SLOT(doneSlot()));
     vLayout->addWidget(schulteWgt, 15);
 
     doneBtn = new QPushButton;
-    doneBtn->setFont(settings->getFont3());
+    doneBtn->setFont(Settings::getInstance().getFont3());
     connect(doneBtn, SIGNAL(clicked()), SLOT(doneSlot()));
     vLayout->addWidget(doneBtn, 1);
     setLayout(vLayout);
@@ -79,7 +81,7 @@ ExerciseWidget::ExerciseWidget(Settings *newSettings, QWidget *wgt)
 }
 
 void ExerciseWidget::updateTime() {
-    if (settings->getShowTimer()) {
+    if (Settings::getInstance().getShowTimer()) {
         const auto now = std::chrono::steady_clock::now();
         long long elapsed =
             std::chrono::duration_cast<deciseconds>(now.time_since_epoch())
@@ -93,7 +95,7 @@ void ExerciseWidget::updateTime() {
 
 void ExerciseWidget::pressedNumber(int number) {
     doneBtn->setText(tr("Done") + ": " + QString::number(number) + "/" +
-                     QString::number(settings->getNumCells()));
+                     QString::number(Settings::getInstance().getNumCells()));
 }
 
 void ExerciseWidget::cancelSlot() {
@@ -121,7 +123,8 @@ void ExerciseWidget::doneSlot() {
             .count() -
         startTime;
 
-    settings->getStats().addStats(settings->getNumCells(), elapsed);
+    Settings::getInstance().addTableStat(Settings::getInstance().getNumCells(),
+                                         elapsed);
 
     emit doneSignal();
 }

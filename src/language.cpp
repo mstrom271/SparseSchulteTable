@@ -1,56 +1,46 @@
 #include "language.h"
 #include <QApplication>
-#include <QSettings>
 #include <QWidget>
 
-Language::Language() {
-    language = loadSettings();
-    setLanguage(language);
+Language::Language() {}
+
+Language &Language::getInstance() {
+    static Language instance;
+    return instance;
 }
 
 // notify all widgets to change a language
 void Language::notifyAll() {
-    QApplication::instance()->installTranslator(&translator);
     const QWidgetList allWidgets = QApplication::allWidgets();
     for (auto widget : allWidgets) {
         QApplication::instance()->postEvent(widget, new LanguageChangeEvent);
     }
 }
 
-// load translator for respective lang, update settings
-void Language::setLanguage(QString lang) {
-    language = correct(lang);
-
-    bool isOk = translator.load(":/rcc/translation_" + language + ".qm");
-
-    QSettings settings;
-    settings.setValue("/language", language);
+// load translation for relative language
+void Language::applyLanguage(QString lang) {
+    bool isOk = Language::getInstance().translator.load(":rcc/translation_" +
+                                                        correct(lang) + ".qm");
+    if (isOk)
+        QApplication::instance()->installTranslator(
+            &Language::getInstance().translator);
 }
 
-QString Language::getLanguage() { return language; }
-
-QString Language::loadSettings() {
-    QSettings settings;
-    language = settings.value("/language", "").toString();
-
-    // no language in the settings, first launch
-    if (language == "") {
-        switch (QLocale::system().language()) {
-        case QLocale::Russian:
-            language = "ru";
-            break;
-        case QLocale::English:
-            language = "en";
-            break;
-        default:
-            language = "en";
-            break;
-        }
+QString Language::getSystemLanguage() {
+    QString lang;
+    switch (QLocale::system().language()) {
+    case QLocale::Russian:
+        lang = "ru";
+        break;
+    case QLocale::English:
+        lang = "en";
+        break;
+    default:
+        lang = "en";
+        break;
     }
-    language = correct(language);
-    settings.setValue("/language", language);
 
-    return language;
+    return correct(lang);
 }
 
 // check if lang is allowed. Return default, if lang is incorrect

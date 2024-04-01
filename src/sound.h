@@ -3,16 +3,16 @@
 #include <QSoundEffect>
 
 class Sound {
-    bool isClickSound;
-
     QSoundEffect *clickSound = nullptr, *switchingSound = nullptr;
 
-  public:
     Sound();
-    ~Sound();
-    void click();
-    void switching();
+    Sound(const Sound &) = delete;
+    Sound &operator=(const Sound &) = delete;
 
-    bool getIsClickSound() const;
-    void setIsClickSound(bool newIsClickSound);
+  public:
+    ~Sound();
+    static Sound &getInstance();
+
+    static void click();
+    static void switching();
 };

@@ -1,6 +1,5 @@
 #pragma once
 
-#include "settings.h"
 #include <QCheckBox>
 #include <QComboBox>
 #include <QLabel>
@@ -11,8 +10,6 @@
 
 class SettingsWidget : public QWidget {
     Q_OBJECT
-
-    Settings *settings;
 
     QVBoxLayout *vLayout;
     QScrollArea *scrollArea;
@@ -66,7 +63,7 @@ class SettingsWidget : public QWidget {
     virtual void showEvent(QShowEvent *event) override;
 
   public:
-    SettingsWidget(Settings *newSettings, QWidget *wgt = nullptr);
+    SettingsWidget(QWidget *wgt = nullptr);
 
   public slots:
     void languageChange(QString s);

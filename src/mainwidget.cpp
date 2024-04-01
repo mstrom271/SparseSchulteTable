@@ -1,4 +1,8 @@
 #include "mainwidget.h"
+#include "language.h"
+#include "settings.h"
+#include "sound.h"
+#include "theme.h"
 #include <QApplication>
 #include <QKeyEvent>
 #include <QPushButton>
@@ -12,60 +16,60 @@ MainWidget::MainWidget(QWidget *wgt) : QWidget(wgt) {
 
     stackLayout = new QStackedLayout;
     vLayout->addLayout(stackLayout);
-    setupWgt = new SetupWidget(&settings);
+    setupWgt = new SetupWidget;
     connect(setupWgt, SIGNAL(showSettings()), SLOT(showSettings()));
     connect(setupWgt, SIGNAL(showHelp()), SLOT(showHelp()));
     connect(setupWgt, SIGNAL(startExercise()), SLOT(startExercise()));
     stackLayout->addWidget(setupWgt);
 
-    exerciseWgt = new ExerciseWidget(&settings);
+    exerciseWgt = new ExerciseWidget;
     connect(exerciseWgt, SIGNAL(doneSignal()), SLOT(showSetup()));
     stackLayout->addWidget(exerciseWgt);
 
-    helpWgt = new HelpWidget(&settings);
+    helpWgt = new HelpWidget;
     connect(helpWgt, SIGNAL(ok()), SLOT(showSetup()));
     stackLayout->addWidget(helpWgt);
 
-    settingsWgt = new SettingsWidget(&settings);
+    settingsWgt = new SettingsWidget;
     connect(settingsWgt, SIGNAL(ok()), SLOT(showSetup()));
     stackLayout->addWidget(settingsWgt);
     stackLayout->setCurrentWidget(setupWgt);
     setLayout(vLayout);
 
     stackLayout->setCurrentWidget(setupWgt);
-    settings.getTheme().notifyAll();
-    settings.getLanguage().notifyAll();
+    Theme::getInstance().notifyAll();
+    Language::getInstance().notifyAll();
 
     setObjectName("MainWidget");
 }
 
 void MainWidget::startExercise() {
-    settings.getSound().switching();
+    Sound::getInstance().switching();
 
     stackLayout->setCurrentWidget(exerciseWgt);
 }
 
 void MainWidget::showSetup() {
-    settings.getSound().switching();
+    Sound::getInstance().switching();
 
     stackLayout->setCurrentWidget(setupWgt);
 }
 
 void MainWidget::showSettings() {
-    settings.getSound().switching();
+    Sound::getInstance().switching();
 
     stackLayout->setCurrentWidget(settingsWgt);
 }
 
 void MainWidget::showHelp() {
-    settings.getSound().switching();
+    Sound::getInstance().switching();
 
     stackLayout->setCurrentWidget(helpWgt);
 }
 
 void MainWidget::onThemeChange() {
     QString style;
-    if (settings.getTheme().getTheme() == "DarkTheme") {
+    if (Settings::getInstance().getTheme() == "DarkTheme") {
         style += "QWidget {background-color: black; color: white;}";
         style += "QPushButton {\
                     border: 1px solid #6f6f71;\
@@ -73,7 +77,7 @@ void MainWidget::onThemeChange() {
                     background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                       stop: 0 #111111, stop: 1 #222222);\
                  }";
-    } else if (settings.getTheme().getTheme() == "GreyTheme") {
+    } else if (Settings::getInstance().getTheme() == "GreyTheme") {
         style +=
             "QWidget {background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                             stop: 0 #777777, stop: 1 #555555);\
@@ -84,7 +88,7 @@ void MainWidget::onThemeChange() {
                     background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\
                                                       stop: 0 #AAAAAA, stop: 1 #888888);\
                  }";
-    } else if (settings.getTheme().getTheme() == "LightTheme") {
+    } else if (Settings::getInstance().getTheme() == "LightTheme") {
         style += "QWidget {background-color: #EEEEEE; color: black;}";
         style += "QPushButton {\
                     border: 1px solid #AAAAAA;\
@@ -120,13 +124,13 @@ void MainWidget::keyPressEvent(QKeyEvent *event) {
             settings.getLanguage().setLanguage("en");
         settings.getLanguage().notifyAll();
     } else if (event->key() == Qt::Key_T) {
-        if (settings.getTheme().getTheme() == "DarkTheme")
-            settings.getTheme().setTheme("GreyTheme");
-        else if (settings.getTheme().getTheme() == "GreyTheme")
-            settings.getTheme().setTheme("LightTheme");
+        if (Settings::getInstance().getTheme() == "DarkTheme")
+            Settings::getInstance().setTheme("GreyTheme");
+        else if (Settings::getInstance().getTheme() == "GreyTheme")
+            Settings::getInstance().setTheme("LightTheme");
         else
-            settings.getTheme().setTheme("DarkTheme");
-        settings.getTheme().notifyAll();
+            Settings::getInstance().setTheme("DarkTheme");
+        Settings::getInstance().notifyAll();
     } else if (event->key() == Qt::Key_1)
         stackLayout->setCurrentWidget(setupWgt);
     else if (event->key() == Qt::Key_2)
@@ -139,7 +143,7 @@ void MainWidget::keyPressEvent(QKeyEvent *event) {
 
     if (event->key() == Qt::Key_Back || event->key() == Qt::Key_Backspace) {
         if (stackLayout->currentWidget() != setupWgt) {
-            settings.getSound().switching();
+            Sound::getInstance().switching();
             stackLayout->setCurrentWidget(setupWgt);
         } else
             QApplication::quit();

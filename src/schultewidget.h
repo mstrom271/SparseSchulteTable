@@ -8,11 +8,10 @@
 class SchulteWidget : public QWidget {
     Q_OBJECT
 
-    Settings *settings;
     bool fake;
 
-    TableStyle tableStyle;
-    CentralPointStyle centralPointStyle;
+    TableStyleT tableStyle;
+    CentralPointStyleT centralPointStyle;
 
     QVector<int> table_sequence;
     int quad_side;
@@ -43,7 +42,7 @@ class SchulteWidget : public QWidget {
     virtual void mouseReleaseEvent(QMouseEvent *event) override;
 
   public:
-    SchulteWidget(Settings *newSettings, bool fake, QWidget *wgt = nullptr);
+    SchulteWidget(bool fake, QWidget *wgt = nullptr);
 
     int getQuad_side() const;
 

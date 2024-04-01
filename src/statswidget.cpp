@@ -1,4 +1,8 @@
 #include "statswidget.h"
+#include "language.h"
+#include "settings.h"
+#include "theme.h"
+#include <QEvent>
 #include <QPainter>
 #include <algorithm>
 
@@ -29,18 +33,18 @@ bool StatsWidget::event(QEvent *event) {
 }
 
 void StatsWidget::resizeEvent(QResizeEvent *event) {
-    setMaximumHeight(settings->getWindowSize().width() / 3.5);
+    setMaximumHeight(Settings::getInstance().getWindowSize().width() / 3.5);
 
     QWidget::resizeEvent(event);
 }
 
 void StatsWidget::paintEvent(QPaintEvent *event) {
     QPainter p(this);
-    p.setFont(settings->getFont4());
-    QFontMetrics fm(settings->getFont4());
+    p.setFont(Settings::getInstance().getFont4());
+    QFontMetrics fm(Settings::getInstance().getFont4());
 
-    const QList<int> &stats =
-        settings->getStats().getStats(settings->getNumCells());
+    const QList<int> &stats = Settings::getInstance().getTableStat(
+        Settings::getInstance().getNumCells());
     int num = stats.size();
 
     if (num > 0) {
@@ -106,7 +110,6 @@ void StatsWidget::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);
 }
 
-StatsWidget::StatsWidget(Settings *newSettings, QWidget *wgt)
-    : QWidget(wgt), settings(newSettings) {
+StatsWidget::StatsWidget(QWidget *wgt) : QWidget(wgt) {
     setSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::MinimumExpanding);
 }

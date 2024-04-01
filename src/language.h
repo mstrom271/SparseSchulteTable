@@ -12,15 +12,16 @@ class LanguageChangeEvent : public QEvent {
 
 class Language {
     QTranslator translator;
-    QString language;
+
+    Language();
+    Language(const Language &other) = delete;
+    Language &operator=(const Language &other) = delete;
 
   public:
-    Language();
-    void setLanguage(QString newLanguage);
-    QString getLanguage();
-    void notifyAll();
+    static Language &getInstance();
 
-  private:
-    QString loadSettings();
-    QString correct(QString language);
+    static void applyLanguage(QString lang);
+    static QString getSystemLanguage();
+    static void notifyAll();
+    static QString correct(QString language);
 };

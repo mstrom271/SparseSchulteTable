@@ -1,12 +1,9 @@
 #pragma once
 
-#include "settings.h"
 #include <QWidget>
 
 class StatsWidget : public QWidget {
     Q_OBJECT
-
-    Settings *settings;
 
     QString msg_min, msg_max, msg_last, msg_sec, msg_nostat, msg_deletelast,
         msg_deleteall;
@@ -20,5 +17,5 @@ class StatsWidget : public QWidget {
     virtual void paintEvent(QPaintEvent *event) override;
 
   public:
-    StatsWidget(Settings *newSettings, QWidget *wgt = nullptr);
+    StatsWidget(QWidget *wgt = nullptr);
 };

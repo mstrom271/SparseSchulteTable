@@ -1,19 +1,7 @@
 #include "sound.h"
-#include <QSettings>
-
-bool Sound::getIsClickSound() const { return isClickSound; }
-
-void Sound::setIsClickSound(bool newIsClickSound) {
-    isClickSound = newIsClickSound;
-
-    QSettings settings;
-    settings.setValue("/clickSound", isClickSound);
-}
+#include "settings.h"
 
 Sound::Sound() {
-    QSettings settings;
-    isClickSound = settings.value("/clickSound", true).toBool();
-
     clickSound = new QSoundEffect;
     switchingSound = new QSoundEffect;
 
@@ -26,16 +14,21 @@ Sound::~Sound() {
     delete switchingSound;
 }
 
+Sound &Sound::getInstance() {
+    static Sound instance;
+    return instance;
+}
+
 void Sound::click() {
-    if (isClickSound) {
-        clickSound->stop();
-        clickSound->play();
+    if (Settings::getClickSound()) {
+        Sound::getInstance().clickSound->stop();
+        Sound::getInstance().clickSound->play();
     }
 }
 
 void Sound::switching() {
-    if (isClickSound) {
-        switchingSound->stop();
-        switchingSound->play();
+    if (Settings::getClickSound()) {
+        Sound::getInstance().switchingSound->stop();
+        Sound::getInstance().switchingSound->play();
     }
 }

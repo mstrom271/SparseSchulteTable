@@ -2,7 +2,6 @@
 
 #include "exercisewidget.h"
 #include "helpwidget.h"
-#include "settings.h"
 #include "settingswidget.h"
 #include "setupwidget.h"
 #include <QLabel>
@@ -20,7 +19,6 @@ class MainWidget : public QWidget {
     ExerciseWidget *exerciseWgt;
     HelpWidget *helpWgt;
     SettingsWidget *settingsWgt;
-    Settings settings;
 
     void onThemeChange();
     void onLanguageChange();

@@ -1,5 +1,4 @@
 #include "serialize.h"
-#include "settings.h"
 
 QString serializeTableStyle(TableStyleT TableStyle) {
     if (TableStyle == TableStyleT::ClassicTable)

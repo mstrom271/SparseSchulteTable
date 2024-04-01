@@ -1,6 +1,5 @@
 #pragma once
 
-#include "settings.h"
 #include <QLabel>
 #include <QLayout>
 #include <QPushButton>
@@ -9,8 +8,6 @@
 
 class HelpWidget : public QWidget {
     Q_OBJECT
-
-    Settings *settings;
 
     QVBoxLayout *vLayout;
     QScrollArea *scrollArea;
@@ -26,7 +23,7 @@ class HelpWidget : public QWidget {
     virtual void showEvent(QShowEvent *event) override;
 
   public:
-    HelpWidget(Settings *newSettings, QWidget *wgt = nullptr);
+    HelpWidget(QWidget *wgt = nullptr);
 
   signals:
     void ok();

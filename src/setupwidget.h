@@ -1,7 +1,6 @@
 #pragma once
 
 #include "schultewidget.h"
-#include "settings.h"
 #include "statswidget.h"
 #include <QDialog>
 #include <QLabel>
@@ -13,16 +12,11 @@
 class SetupWidget : public QWidget {
     Q_OBJECT
 
-    Settings *settings;
-
     QVBoxLayout *vLayout;
     StatsWidget *statsWgt;
     QHBoxLayout *hLayout1;
     QPushButton *deleteAllStatsBtn, *deleteLastStatsBtn, *settingsBtn, *helpBtn,
         *likeBtn;
-#ifdef FREE_VERSION
-    QPushButton *proBtn;
-#endif
     QHBoxLayout *hLayout2;
     QPushButton *btn_dec;
     QLabel *label;
@@ -45,7 +39,7 @@ class SetupWidget : public QWidget {
     virtual void paintEvent(QPaintEvent *event) override;
 
   public:
-    SetupWidget(Settings *newSettings, QWidget *wgt = nullptr);
+    SetupWidget(QWidget *wgt = nullptr);
 
   public slots:
     void deleteAllStats();
@@ -66,8 +60,6 @@ class SetupWidget : public QWidget {
 class MessageBox : public QDialog {
     Q_OBJECT
 
-    Settings *settings;
-
     QVBoxLayout *vLayout;
     QLabel *lbl;
     QHBoxLayout *hLayout;
@@ -81,6 +73,6 @@ class MessageBox : public QDialog {
     virtual void resizeEvent(QResizeEvent *event) override;
 
   public:
-    MessageBox(Settings *newSettings, QWidget *wgt = nullptr);
+    MessageBox(QWidget *wgt = nullptr);
     void setText(QString text);
 };

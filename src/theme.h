@@ -1,8 +1,6 @@
 #pragma once
 
 #include <QEvent>
-#include <QString>
-#include <QStringList>
 
 class ThemeChangeEvent : public QEvent {
   public:
@@ -12,13 +10,16 @@ class ThemeChangeEvent : public QEvent {
 };
 
 class Theme {
-    QString currentTheme;
-    QStringList list{"DarkTheme", "GreyTheme", "LightTheme"};
+    Theme();
+    Theme(const Theme &other) = delete;
+    Theme &operator=(const Theme &other) = delete;
 
   public:
-    Theme();
-    void setTheme(QString newThemeName);
-    QString getTheme();
-    QStringList getList();
-    void notifyAll();
+    static Theme &getInstance();
+
+    static void applyTheme(QString theme);
+    static QString getSystemTheme();
+    static void notifyAll();
+    static QStringList getThemeList();
+    static QString correct(QString theme);
 };
