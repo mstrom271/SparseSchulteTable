@@ -123,8 +123,8 @@ void ExerciseWidget::doneSlot() {
             .count() -
         startTime;
 
-    Settings::getInstance().addTableStat(Settings::getInstance().getNumCells(),
-                                         elapsed);
+    Settings::getInstance().addTableStats(Settings::getInstance().getNumCells(),
+                                          elapsed);
 
     emit doneSignal();
 }

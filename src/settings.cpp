@@ -28,6 +28,10 @@ Settings::Settings() {
         Theme =
             settings.value("/Theme", Theme::correct("DarkTheme")).toString();
 
+    for (int table = 3; table <= 121; table++)
+        Stats[table] = deSerializeTableStat(
+            settings.value("/Stats/" + QString::number(table)).toString());
+
     NumCells = std::clamp(settings.value("/NumCells", 16).toInt(), 3, 121);
     TableScale = settings.value("/TableScale", 100).toInt();
     FontMaxSize = settings.value("/FontMaxSize", 0).toInt();
@@ -125,8 +129,8 @@ void Settings::upgradeOldSettings() {
             // clang-format on
         };
         for (int i = 3; i <= 121; i++)
-            names.push_back(
-                {"/table" + QString::number(i), "/Stat/" + QString::number(i)});
+            names.push_back({"/table" + QString::number(i),
+                             "/Stats/" + QString::number(i)});
 
         // rename items
         for (auto item : names) {
@@ -158,17 +162,17 @@ void Settings::setTheme(QString newTheme) {
     Settings::getInstance().Theme = newTheme;
 };
 
-QList<int> Settings::getTableStat(int table) {
-    return Settings::getInstance().Stat[table];
+QList<int> Settings::getTableStats(int table) {
+    return Settings::getInstance().Stats[table];
 }
-void Settings::setTableStat(int table, QList<int> newStat) {
+void Settings::setTableStats(int table, QList<int> newStat) {
     // convert to str
-    Settings::getInstance().settings.setValue("/Stat/" + QString::number(table),
-                                              serializeTableStat(newStat));
-    Settings::getInstance().Stat[table] = newStat;
+    Settings::getInstance().settings.setValue(
+        "/Stats/" + QString::number(table), serializeTableStat(newStat));
+    Settings::getInstance().Stats[table] = newStat;
 };
-void Settings::addTableStat(int table, int score) {
-    auto stat = getTableStat(table);
+void Settings::addTableStats(int table, int score) {
+    auto stat = getTableStats(table);
     stat.push_back(score);
 
     // trim
@@ -176,15 +180,20 @@ void Settings::addTableStat(int table, int score) {
     while (stat.size() > maxStats)
         stat.pop_front();
 
-    setTableStat(table, stat);
+    setTableStats(table, stat);
 }
-void Settings::removeLastTableStat(int table) {
-    auto stat = getTableStat(table);
-    stat.pop_back();
-    setTableStat(table, stat);
+void Settings::removeLastTableStats(int table) {
+    auto stat = getTableStats(table);
+    if (!stat.isEmpty())
+        stat.pop_back();
+    setTableStats(table, stat);
+    if (stat.isEmpty())
+        Settings::getInstance().settings.remove("/Stats/" +
+                                                QString::number(table));
 }
-void Settings::removeAllTableStat(int table) {
-    setTableStat(table, QList<int>());
+void Settings::removeAllTableStats(int table) {
+    setTableStats(table, QList<int>());
+    Settings::getInstance().settings.remove("/Stats/" + QString::number(table));
 }
 
 int Settings::getNumCells() { return Settings::getInstance().NumCells; }

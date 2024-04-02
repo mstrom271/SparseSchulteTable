@@ -14,7 +14,7 @@ class Settings {
     bool FirstRun;
     QString Language;
     QString Theme;
-    QMap<int, QList<int>> Stat;
+    QMap<int, QList<int>> Stats;
     int NumCells;
     int TableScale;
     int FontMaxSize;
@@ -46,11 +46,11 @@ class Settings {
     static QString getTheme();
     static void setTheme(QString newTheme);
 
-    static QList<int> getTableStat(int table);
-    static void setTableStat(int table, QList<int> newStat);
-    static void addTableStat(int table, int score);
-    static void removeLastTableStat(int table);
-    static void removeAllTableStat(int table);
+    static QList<int> getTableStats(int table);
+    static void setTableStats(int table, QList<int> newStat);
+    static void addTableStats(int table, int score);
+    static void removeLastTableStats(int table);
+    static void removeAllTableStats(int table);
 
     static int getNumCells();
     static void setNumCells(int newNumCells);

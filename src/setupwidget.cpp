@@ -80,7 +80,7 @@ void SetupWidget::deleteAllStats() {
     MessageBox *msgBox = new MessageBox;
     msgBox->setText(msgDeleteAllStats);
     if (msgBox->exec() == QDialog::DialogCode::Accepted) {
-        Settings::getInstance().removeAllTableStat(
+        Settings::getInstance().removeAllTableStats(
             Settings::getInstance().getNumCells());
     }
     delete msgBox;
@@ -95,7 +95,7 @@ void SetupWidget::deleteLastStats() {
     MessageBox *msgBox = new MessageBox;
     msgBox->setText(msgDeleteLastStats);
     if (msgBox->exec() == QDialog::DialogCode::Accepted)
-        Settings::getInstance().removeLastTableStat(
+        Settings::getInstance().removeLastTableStats(
             Settings::getInstance().getNumCells());
     delete msgBox;
 

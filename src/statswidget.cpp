@@ -43,7 +43,7 @@ void StatsWidget::paintEvent(QPaintEvent *event) {
     p.setFont(Settings::getInstance().getFont4());
     QFontMetrics fm(Settings::getInstance().getFont4());
 
-    const QList<int> &stats = Settings::getInstance().getTableStat(
+    const QList<int> &stats = Settings::getInstance().getTableStats(
         Settings::getInstance().getNumCells());
     int num = stats.size();
 
