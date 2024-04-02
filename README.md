@@ -1,4 +1,4 @@
-# Crossplatform Qt App template #
+# Sparse Schulte Table #
 Schulte table app. For developing speed reading and attention skills
 
 ## Requirements ##
