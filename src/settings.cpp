@@ -328,5 +328,5 @@ void Settings::setSeedForSchulte(long long newSeedForSchulte) {
 };
 void Settings::generateSeedForSchulte() {
     const auto now = std::chrono::steady_clock::now();
-    Settings::getInstance().setSeedForSchulte(now.time_since_epoch().count());
+    Settings::getInstance().SeedForSchulte = now.time_since_epoch().count();
 }

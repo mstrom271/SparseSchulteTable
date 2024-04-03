@@ -1,11 +1,12 @@
+#include "config.h"
 #include "mainwidget.h"
 #include <QApplication>
 #include <QScreen>
 
 int main(int argc, char **argv) {
     QApplication *app = new QApplication(argc, argv);
-    QApplication::setOrganizationName("TapMyApp");
-    QApplication::setApplicationName("SparseSchulte");
+    QApplication::setOrganizationName(ORGANIZATION_NAME);
+    QApplication::setApplicationName(PROJECT_NAME);
 
     MainWidget *wgt = new MainWidget;
 

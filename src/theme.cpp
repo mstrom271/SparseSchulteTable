@@ -25,8 +25,12 @@ void Theme::applyTheme(QString theme) {
 }
 
 QString Theme::getSystemTheme() {
-    // TODO:
-    return correct("DarkTheme");
+    QPalette palette = QApplication::palette();
+    QColor windowColor = palette.color(QPalette::Window);
+    if (windowColor.value() < 128)
+        return correct("DarkTheme");
+    else
+        return correct("LightTheme");
 }
 
 QStringList Theme::getThemeList() {
