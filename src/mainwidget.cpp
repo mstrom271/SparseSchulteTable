@@ -37,8 +37,10 @@ MainWidget::MainWidget(QWidget *wgt) : QWidget(wgt) {
     setLayout(vLayout);
 
     stackLayout->setCurrentWidget(setupWgt);
-    Theme::getInstance().notifyAll();
-    Language::getInstance().notifyAll();
+    Theme::applyTheme(Settings::getTheme());
+    Theme::notifyAll();
+    Language::applyLanguage(Settings::getLanguage());
+    Language::notifyAll();
 
     setObjectName("MainWidget");
 }
@@ -116,31 +118,6 @@ bool MainWidget::event(QEvent *event) {
 }
 
 void MainWidget::keyPressEvent(QKeyEvent *event) {
-#ifdef QT_QML_DEBUG
-    if (event->key() == Qt::Key_L) {
-        if (settings.getLanguage().getLanguage() == "en")
-            settings.getLanguage().setLanguage("ru");
-        else
-            settings.getLanguage().setLanguage("en");
-        settings.getLanguage().notifyAll();
-    } else if (event->key() == Qt::Key_T) {
-        if (Settings::getTheme() == "DarkTheme")
-            Settings::setTheme("GreyTheme");
-        else if (Settings::getTheme() == "GreyTheme")
-            Settings::setTheme("LightTheme");
-        else
-            Settings::setTheme("DarkTheme");
-        Settings::notifyAll();
-    } else if (event->key() == Qt::Key_1)
-        stackLayout->setCurrentWidget(setupWgt);
-    else if (event->key() == Qt::Key_2)
-        stackLayout->setCurrentWidget(exerciseWgt);
-    else if (event->key() == Qt::Key_3)
-        stackLayout->setCurrentWidget(settingsWgt);
-    else if (event->key() == Qt::Key_4)
-        stackLayout->setCurrentWidget(helpWgt);
-#endif
-
     if (event->key() == Qt::Key_Back || event->key() == Qt::Key_Backspace) {
         if (stackLayout->currentWidget() != setupWgt) {
             Sound::getInstance().switching();

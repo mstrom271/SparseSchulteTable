@@ -152,12 +152,20 @@ bool Settings::getFirstRun() { return Settings::getInstance().FirstRun; }
 
 QString Settings::getLanguage() { return Settings::getInstance().Language; }
 void Settings::setLanguage(QString newLanguage) {
+    newLanguage = Language::correct(newLanguage);
+    Language::applyLanguage(newLanguage);
+    Language::notifyAll();
+
     Settings::getInstance().settings.setValue("/Language", newLanguage);
     Settings::getInstance().Language = newLanguage;
 };
 
 QString Settings::getTheme() { return Settings::getInstance().Theme; }
 void Settings::setTheme(QString newTheme) {
+    newTheme = Theme::correct(newTheme);
+    Theme::applyTheme(newTheme);
+    Theme::notifyAll();
+
     Settings::getInstance().settings.setValue("/Theme", newTheme);
     Settings::getInstance().Theme = newTheme;
 };

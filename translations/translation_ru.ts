@@ -54,102 +54,102 @@
 <context>
     <name>SettingsWidget</name>
     <message>
-        <location filename="../src/settingswidget.cpp" line="370"/>
+        <location filename="../src/settingswidget.cpp" line="362"/>
         <source>Settings</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="372"/>
+        <location filename="../src/settingswidget.cpp" line="364"/>
         <source>Language</source>
         <translation>Язык</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="374"/>
+        <location filename="../src/settingswidget.cpp" line="366"/>
         <source>To choose a language of the application</source>
         <translation>Выбрать язык приложения</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="376"/>
+        <location filename="../src/settingswidget.cpp" line="368"/>
         <source>Themes</source>
         <translation>Темы</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="377"/>
+        <location filename="../src/settingswidget.cpp" line="369"/>
         <source>Color of interface elements</source>
         <translation>Цвет элементов интерфейса</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="379"/>
+        <location filename="../src/settingswidget.cpp" line="371"/>
         <source>Sound</source>
         <translation>Звук</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="380"/>
+        <location filename="../src/settingswidget.cpp" line="372"/>
         <source>Sound of button clicks</source>
         <translation>Звук нажатий кнопок</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="382"/>
+        <location filename="../src/settingswidget.cpp" line="374"/>
         <source>Table Style</source>
         <translation>Стиль таблицы</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="383"/>
+        <location filename="../src/settingswidget.cpp" line="375"/>
         <source>Classic or Sparse table</source>
         <translation>Классическая или Разреженная таблица</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="385"/>
+        <location filename="../src/settingswidget.cpp" line="377"/>
         <source>Central Point</source>
         <translation>Центральная точка</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="386"/>
+        <location filename="../src/settingswidget.cpp" line="378"/>
         <source>Point for concentration</source>
         <translation>Точка для концентрации внимания</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="388"/>
+        <location filename="../src/settingswidget.cpp" line="380"/>
         <source>Max Font</source>
         <translation>Шрифт таблицы</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="390"/>
+        <location filename="../src/settingswidget.cpp" line="382"/>
         <source>Table&apos;s max font in pixels. 0 is auto</source>
         <translation>Максимальный размер шрифта в таблице в пикселах. 0 - автоматический</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="392"/>
+        <location filename="../src/settingswidget.cpp" line="384"/>
         <source>Table Size</source>
         <translation>Размер таблицы</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="394"/>
+        <location filename="../src/settingswidget.cpp" line="386"/>
         <source>Table size in %. Useful for big screens of tablets</source>
         <translation>Размер таблицы в %. Удобно для больших экранов планшетов</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="396"/>
+        <location filename="../src/settingswidget.cpp" line="388"/>
         <source>Show Timer</source>
         <translation>Показывать таймер</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="397"/>
+        <location filename="../src/settingswidget.cpp" line="389"/>
         <source>Timer during exercise</source>
         <translation>Таймер во время упражнения</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="399"/>
+        <location filename="../src/settingswidget.cpp" line="391"/>
         <source>Keep Awake</source>
         <translation>Оставаться включенным</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="401"/>
+        <location filename="../src/settingswidget.cpp" line="393"/>
         <source>Block fading of screen during exercise</source>
         <translation>Блокировать затухание экрана во время упражнения</translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="403"/>
+        <location filename="../src/settingswidget.cpp" line="395"/>
         <source>Ok</source>
         <translation>Хорошо</translation>
     </message>

@@ -28,10 +28,8 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
     gridLayout->setColumnStretch(0, 1);
     gridLayout->setColumnStretch(1, 1);
     gridLayout->setContentsMargins(
-        Settings::getLogicalDPI() * 0.1,
-        Settings::getLogicalDPI() * 0.1,
-        Settings::getLogicalDPI() * 0.1,
-        Settings::getLogicalDPI() * 0.1);
+        Settings::getLogicalDPI() * 0.1, Settings::getLogicalDPI() * 0.1,
+        Settings::getLogicalDPI() * 0.1, Settings::getLogicalDPI() * 0.1);
     int level = 0;
     lbl_caption = new QLabel;
     lbl_caption->setWordWrap(true);
@@ -201,8 +199,8 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
     cmb_tableScale->setFocusPolicy(Qt::NoFocus);
     for (int i = 10; i <= 100; i += 10)
         cmb_tableScale->addItem(QString::number(i) + "%");
-    cmb_tableScale->setCurrentText(
-        QString::number(Settings::getTableScale()) + "%");
+    cmb_tableScale->setCurrentText(QString::number(Settings::getTableScale()) +
+                                   "%");
     cmb_tableScale->setMinimumContentsLength(10);
     cmb_tableScale->setItemDelegate(
         new QStyledItemDelegate()); // to force stylesheets to work
@@ -264,8 +262,7 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
                           Qt::AlignVCenter | Qt::AlignLeft);
     level += 2;
     scrollWidget->setLayout(gridLayout);
-    scrollWidget->setMinimumHeight(Settings::getLogicalDPI() *
-                                   0.5 * level);
+    scrollWidget->setMinimumHeight(Settings::getLogicalDPI() * 0.5 * level);
     scrollArea->setWidget(scrollWidget);
     vLayout->addWidget(scrollArea, 17);
 
@@ -297,12 +294,10 @@ void SettingsWidget::onThemeChange() {
         "; }"
         "QCheckBox::indicator {\
                                 width: " +
-        QString::number(
-            static_cast<int>(Settings::getLogicalDPI() * 0.15)) +
+        QString::number(static_cast<int>(Settings::getLogicalDPI() * 0.15)) +
         "px;\
                                 height: " +
-        QString::number(
-            static_cast<int>(Settings::getLogicalDPI() * 0.15)) +
+        QString::number(static_cast<int>(Settings::getLogicalDPI() * 0.15)) +
         "px;\
                            }";
     ckb_clickSound->setStyleSheet(ckbStyle);
@@ -329,24 +324,22 @@ void SettingsWidget::onThemeChange() {
 
     cmb_language->clear();
     for (auto &lang : {"en", "ru"})
-        cmb_language->addItem(QIcon(":/rcc/" +
-                                    Settings::getTheme() + "/" +
-                                    lang + "_icon.png"),
-                              lang);
+        cmb_language->addItem(
+            QIcon(":/rcc/" + Settings::getTheme() + "/" + lang + "_icon.png"),
+            lang);
     cmb_language->setCurrentText(Settings::getLanguage());
 
     cmb_theme->clear();
-    for (auto &theme : Theme::getInstance().getThemeList())
-        cmb_theme->addItem(QIcon(":/rcc/" + Settings::getTheme() +
-                                 "/" + theme + "_icon.jpg"),
-                           theme);
+    for (auto &theme : Theme::getThemeList())
+        cmb_theme->addItem(
+            QIcon(":/rcc/" + Settings::getTheme() + "/" + theme + "_icon.jpg"),
+            theme);
     cmb_theme->setCurrentText(Settings::getTheme());
 
     cmb_tableStyle->clear();
     for (auto &tableType : {serializeTableStyle(TableStyleT::ClassicTable),
                             serializeTableStyle(TableStyleT::SparseTable)})
-        cmb_tableStyle->addItem(QIcon(":/rcc/" +
-                                      Settings::getTheme() + "/" +
+        cmb_tableStyle->addItem(QIcon(":/rcc/" + Settings::getTheme() + "/" +
                                       tableType + "_icon.png"),
                                 tableType);
     cmb_tableStyle->setCurrentText(
@@ -357,13 +350,12 @@ void SettingsWidget::onThemeChange() {
         QIcon(":/rcc/" + Settings::getTheme() + "/eye_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::EyePic));
     cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Settings::getTheme() +
-              "/greendot_icon.png"),
+        QIcon(":/rcc/" + Settings::getTheme() + "/greendot_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::GreenDot));
     cmb_centralPointStyle->addItem(
         serializeCentralPointStyle(CentralPointStyleT::None));
-    cmb_centralPointStyle->setCurrentText(serializeCentralPointStyle(
-        Settings::getCentralPointStyle()));
+    cmb_centralPointStyle->setCurrentText(
+        serializeCentralPointStyle(Settings::getCentralPointStyle()));
 }
 
 void SettingsWidget::onLanguageChange() {
@@ -484,15 +476,9 @@ void SettingsWidget::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
 }
 
-void SettingsWidget::languageChange(QString s) {
-    Settings::setLanguage(s);
-    Language::getInstance().notifyAll();
-}
+void SettingsWidget::languageChange(QString s) { Settings::setLanguage(s); }
 
-void SettingsWidget::themeChange(QString s) {
-    Settings::setTheme(s);
-    Theme::getInstance().notifyAll();
-}
+void SettingsWidget::themeChange(QString s) { Settings::setTheme(s); }
 
 void SettingsWidget::clickSoundChange(int state) {
     if (state == Qt::Checked)
@@ -506,8 +492,7 @@ void SettingsWidget::tableStyleChange(QString s) {
 }
 
 void SettingsWidget::centralPointStyleChange(QString s) {
-    Settings::setCentralPointStyle(
-        deSerializeCentralPointStyle(s));
+    Settings::setCentralPointStyle(deSerializeCentralPointStyle(s));
 }
 
 void SettingsWidget::fontMaxSizeChange(QString s) {
