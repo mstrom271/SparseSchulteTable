@@ -33,18 +33,17 @@ bool StatsWidget::event(QEvent *event) {
 }
 
 void StatsWidget::resizeEvent(QResizeEvent *event) {
-    setMaximumHeight(Settings::getInstance().getWindowSize().width() / 3.5);
+    setMaximumHeight(Settings::getWindowSize().width() / 3.5);
 
     QWidget::resizeEvent(event);
 }
 
 void StatsWidget::paintEvent(QPaintEvent *event) {
     QPainter p(this);
-    p.setFont(Settings::getInstance().getFont4());
-    QFontMetrics fm(Settings::getInstance().getFont4());
+    p.setFont(Settings::getFont4());
+    QFontMetrics fm(Settings::getFont4());
 
-    const QList<int> &stats = Settings::getInstance().getTableStats(
-        Settings::getInstance().getNumCells());
+    const QList<int> &stats = Settings::getTableStats(Settings::getNumCells());
     int num = stats.size();
 
     if (num > 0) {

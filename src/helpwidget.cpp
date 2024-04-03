@@ -37,8 +37,8 @@ bool HelpWidget::event(QEvent *event) {
 }
 
 void HelpWidget::resizeEvent(QResizeEvent *event) {
-    okBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.15);
-    okBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
+    okBtn->setMinimumHeight(Settings::getLogicalDPI() * 0.15);
+    okBtn->setMaximumHeight(Settings::getLogicalDPI() * 0.25);
 
     QWidget::resizeEvent(event);
 }
@@ -54,7 +54,7 @@ HelpWidget::HelpWidget(QWidget *wgt) : QWidget(wgt) {
     vLayout = new QVBoxLayout;
     scrollArea = new QScrollArea;
     helpLabel = new QLabel;
-    helpLabel->setFont(Settings::getInstance().getFont3());
+    helpLabel->setFont(Settings::getFont3());
     helpLabel->setWordWrap(true);
     helpLabel->setOpenExternalLinks(true);
     helpLabel->setAttribute(Qt::WA_TranslucentBackground);
@@ -71,7 +71,7 @@ HelpWidget::HelpWidget(QWidget *wgt) : QWidget(wgt) {
     vLayout->addWidget(scrollArea, 17);
 
     okBtn = new QPushButton;
-    okBtn->setFont(Settings::getInstance().getFont3());
+    okBtn->setFont(Settings::getFont3());
     connect(okBtn, SIGNAL(clicked()), SIGNAL(ok()));
     vLayout->addWidget(okBtn, 1);
     setLayout(vLayout);

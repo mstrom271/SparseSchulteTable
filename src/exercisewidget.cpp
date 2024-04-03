@@ -23,11 +23,11 @@ bool ExerciseWidget::event(QEvent *event) {
 }
 
 void ExerciseWidget::resizeEvent(QResizeEvent *event) {
-    cancelBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.15);
-    cancelBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
+    cancelBtn->setMinimumHeight(Settings::getLogicalDPI() * 0.15);
+    cancelBtn->setMaximumHeight(Settings::getLogicalDPI() * 0.25);
 
-    doneBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.15);
-    doneBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
+    doneBtn->setMinimumHeight(Settings::getLogicalDPI() * 0.15);
+    doneBtn->setMaximumHeight(Settings::getLogicalDPI() * 0.25);
 
     QWidget::resizeEvent(event);
 }
@@ -42,8 +42,8 @@ void ExerciseWidget::showEvent(QShowEvent *event) {
         std::chrono::duration_cast<deciseconds>(now.time_since_epoch()).count();
 
     doneBtn->setText(tr("Done") + ": " + QString::number(0) + "/" +
-                     QString::number(Settings::getInstance().getNumCells()));
-    schulteWgt->generate(Settings::getInstance().getSeedForSchulte());
+                     QString::number(Settings::getNumCells()));
+    schulteWgt->generate(Settings::getSeedForSchulte());
 
     QWidget::showEvent(event);
 }
@@ -56,13 +56,13 @@ ExerciseWidget::ExerciseWidget(QWidget *wgt) : QWidget(wgt) {
     vLayout->addWidget(spacer);
 
     timerLabel = new QLabel;
-    timerLabel->setFont(Settings::getInstance().getFont3());
+    timerLabel->setFont(Settings::getFont3());
     timerLabel->setAttribute(Qt::WA_TranslucentBackground);
     timerLabel->setAlignment(Qt::AlignBottom | Qt::AlignHCenter);
     vLayout->addWidget(timerLabel, 1);
 
     cancelBtn = new QPushButton;
-    cancelBtn->setFont(Settings::getInstance().getFont3());
+    cancelBtn->setFont(Settings::getFont3());
     connect(cancelBtn, SIGNAL(clicked()), SLOT(cancelSlot()));
     vLayout->addWidget(cancelBtn, 1);
 
@@ -72,7 +72,7 @@ ExerciseWidget::ExerciseWidget(QWidget *wgt) : QWidget(wgt) {
     vLayout->addWidget(schulteWgt, 15);
 
     doneBtn = new QPushButton;
-    doneBtn->setFont(Settings::getInstance().getFont3());
+    doneBtn->setFont(Settings::getFont3());
     connect(doneBtn, SIGNAL(clicked()), SLOT(doneSlot()));
     vLayout->addWidget(doneBtn, 1);
     setLayout(vLayout);
@@ -81,7 +81,7 @@ ExerciseWidget::ExerciseWidget(QWidget *wgt) : QWidget(wgt) {
 }
 
 void ExerciseWidget::updateTime() {
-    if (Settings::getInstance().getShowTimer()) {
+    if (Settings::getShowTimer()) {
         const auto now = std::chrono::steady_clock::now();
         long long elapsed =
             std::chrono::duration_cast<deciseconds>(now.time_since_epoch())
@@ -95,7 +95,7 @@ void ExerciseWidget::updateTime() {
 
 void ExerciseWidget::pressedNumber(int number) {
     doneBtn->setText(tr("Done") + ": " + QString::number(number) + "/" +
-                     QString::number(Settings::getInstance().getNumCells()));
+                     QString::number(Settings::getNumCells()));
 }
 
 void ExerciseWidget::cancelSlot() {
@@ -123,8 +123,7 @@ void ExerciseWidget::doneSlot() {
             .count() -
         startTime;
 
-    Settings::getInstance().addTableStats(Settings::getInstance().getNumCells(),
-                                          elapsed);
+    Settings::addTableStats(Settings::getNumCells(), elapsed);
 
     emit doneSignal();
 }

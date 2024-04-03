@@ -28,10 +28,10 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
     gridLayout->setColumnStretch(0, 1);
     gridLayout->setColumnStretch(1, 1);
     gridLayout->setContentsMargins(
-        Settings::getInstance().getLogicalDPI() * 0.1,
-        Settings::getInstance().getLogicalDPI() * 0.1,
-        Settings::getInstance().getLogicalDPI() * 0.1,
-        Settings::getInstance().getLogicalDPI() * 0.1);
+        Settings::getLogicalDPI() * 0.1,
+        Settings::getLogicalDPI() * 0.1,
+        Settings::getLogicalDPI() * 0.1,
+        Settings::getLogicalDPI() * 0.1);
     int level = 0;
     lbl_caption = new QLabel;
     lbl_caption->setWordWrap(true);
@@ -98,7 +98,7 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
 
     ckb_clickSound = new QCheckBox;
     ckb_clickSound->setFocusPolicy(Qt::NoFocus);
-    ckb_clickSound->setCheckState(Settings::getInstance().getClickSound()
+    ckb_clickSound->setCheckState(Settings::getClickSound()
                                       ? Qt::CheckState::Checked
                                       : Qt::CheckState::Unchecked);
     ckb_clickSound->setAttribute(Qt::WA_TranslucentBackground);
@@ -170,7 +170,7 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
     for (int i = 0; i < 200; i += 10)
         cmb_fontMaxSize->addItem(QString::number(i));
     cmb_fontMaxSize->setCurrentText(
-        QString::number(Settings::getInstance().getFontMaxSize()));
+        QString::number(Settings::getFontMaxSize()));
     cmb_fontMaxSize->setMinimumContentsLength(10);
     cmb_fontMaxSize->setItemDelegate(
         new QStyledItemDelegate()); // to force stylesheets to work
@@ -202,7 +202,7 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
     for (int i = 10; i <= 100; i += 10)
         cmb_tableScale->addItem(QString::number(i) + "%");
     cmb_tableScale->setCurrentText(
-        QString::number(Settings::getInstance().getTableScale()) + "%");
+        QString::number(Settings::getTableScale()) + "%");
     cmb_tableScale->setMinimumContentsLength(10);
     cmb_tableScale->setItemDelegate(
         new QStyledItemDelegate()); // to force stylesheets to work
@@ -231,7 +231,7 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
 
     ckb_showTimer = new QCheckBox;
     ckb_showTimer->setFocusPolicy(Qt::NoFocus);
-    ckb_showTimer->setCheckState(Settings::getInstance().getShowTimer()
+    ckb_showTimer->setCheckState(Settings::getShowTimer()
                                      ? Qt::CheckState::Checked
                                      : Qt::CheckState::Unchecked);
     ckb_showTimer->setAttribute(Qt::WA_TranslucentBackground);
@@ -254,7 +254,7 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
 
     ckb_keepAwake = new QCheckBox;
     ckb_keepAwake->setFocusPolicy(Qt::NoFocus);
-    ckb_keepAwake->setCheckState(Settings::getInstance().getKeepAwake()
+    ckb_keepAwake->setCheckState(Settings::getKeepAwake()
                                      ? Qt::CheckState::Checked
                                      : Qt::CheckState::Unchecked);
     ckb_keepAwake->setAttribute(Qt::WA_TranslucentBackground);
@@ -264,13 +264,13 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
                           Qt::AlignVCenter | Qt::AlignLeft);
     level += 2;
     scrollWidget->setLayout(gridLayout);
-    scrollWidget->setMinimumHeight(Settings::getInstance().getLogicalDPI() *
+    scrollWidget->setMinimumHeight(Settings::getLogicalDPI() *
                                    0.5 * level);
     scrollArea->setWidget(scrollWidget);
     vLayout->addWidget(scrollArea, 17);
 
     okBtn = new QPushButton;
-    okBtn->setFont(Settings::getInstance().getFont3());
+    okBtn->setFont(Settings::getFont3());
     connect(okBtn, SIGNAL(clicked()), SIGNAL(ok()));
     vLayout->addWidget(okBtn, 1);
     setLayout(vLayout);
@@ -280,10 +280,10 @@ void SettingsWidget::onThemeChange() {
 #ifdef Q_OS_ANDROID
     QColor bgColor;
     QColor inversebgColor;
-    if (Settings::getInstance().getTheme() == "DarkTheme") {
+    if (Settings::getTheme() == "DarkTheme") {
         bgColor = Qt::black;
         inversebgColor = Qt::white;
-    } else if (Settings::getInstance().getTheme() == "GreyTheme") {
+    } else if (Settings::getTheme() == "GreyTheme") {
         bgColor = QColor("#777777");
         inversebgColor = Qt::black;
     } else {
@@ -298,18 +298,18 @@ void SettingsWidget::onThemeChange() {
         "QCheckBox::indicator {\
                                 width: " +
         QString::number(
-            static_cast<int>(Settings::getInstance().getLogicalDPI() * 0.15)) +
+            static_cast<int>(Settings::getLogicalDPI() * 0.15)) +
         "px;\
                                 height: " +
         QString::number(
-            static_cast<int>(Settings::getInstance().getLogicalDPI() * 0.15)) +
+            static_cast<int>(Settings::getLogicalDPI() * 0.15)) +
         "px;\
                            }";
     ckb_clickSound->setStyleSheet(ckbStyle);
     ckb_showTimer->setStyleSheet(ckbStyle);
     ckb_keepAwake->setStyleSheet(ckbStyle);
 
-    QFontMetrics fm(Settings::getInstance().getFont3());
+    QFontMetrics fm(Settings::getFont3());
     QString cmbStyle =
         "QComboBox QAbstractItemView::item { min-height: " +
         QString::number(fm.lineSpacing() * 3) + "px;}" +
@@ -330,40 +330,40 @@ void SettingsWidget::onThemeChange() {
     cmb_language->clear();
     for (auto &lang : {"en", "ru"})
         cmb_language->addItem(QIcon(":/rcc/" +
-                                    Settings::getInstance().getTheme() + "/" +
+                                    Settings::getTheme() + "/" +
                                     lang + "_icon.png"),
                               lang);
-    cmb_language->setCurrentText(Settings::getInstance().getLanguage());
+    cmb_language->setCurrentText(Settings::getLanguage());
 
     cmb_theme->clear();
     for (auto &theme : Theme::getInstance().getThemeList())
-        cmb_theme->addItem(QIcon(":/rcc/" + Settings::getInstance().getTheme() +
+        cmb_theme->addItem(QIcon(":/rcc/" + Settings::getTheme() +
                                  "/" + theme + "_icon.jpg"),
                            theme);
-    cmb_theme->setCurrentText(Settings::getInstance().getTheme());
+    cmb_theme->setCurrentText(Settings::getTheme());
 
     cmb_tableStyle->clear();
     for (auto &tableType : {serializeTableStyle(TableStyleT::ClassicTable),
                             serializeTableStyle(TableStyleT::SparseTable)})
         cmb_tableStyle->addItem(QIcon(":/rcc/" +
-                                      Settings::getInstance().getTheme() + "/" +
+                                      Settings::getTheme() + "/" +
                                       tableType + "_icon.png"),
                                 tableType);
     cmb_tableStyle->setCurrentText(
-        serializeTableStyle(Settings::getInstance().getTableStyle()));
+        serializeTableStyle(Settings::getTableStyle()));
 
     cmb_centralPointStyle->clear();
     cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Settings::getInstance().getTheme() + "/eye_icon.png"),
+        QIcon(":/rcc/" + Settings::getTheme() + "/eye_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::EyePic));
     cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Settings::getInstance().getTheme() +
+        QIcon(":/rcc/" + Settings::getTheme() +
               "/greendot_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::GreenDot));
     cmb_centralPointStyle->addItem(
         serializeCentralPointStyle(CentralPointStyleT::None));
     cmb_centralPointStyle->setCurrentText(serializeCentralPointStyle(
-        Settings::getInstance().getCentralPointStyle()));
+        Settings::getCentralPointStyle()));
 }
 
 void SettingsWidget::onLanguageChange() {
@@ -402,7 +402,7 @@ void SettingsWidget::onLanguageChange() {
 
     okBtn->setText(tr("Ok"));
 
-    cmb_language->setCurrentText(Settings::getInstance().getLanguage());
+    cmb_language->setCurrentText(Settings::getLanguage());
 }
 
 bool SettingsWidget::event(QEvent *event) {
@@ -418,61 +418,61 @@ bool SettingsWidget::event(QEvent *event) {
 }
 
 void SettingsWidget::resizeEvent(QResizeEvent *event) {
-    QFontMetrics fm(Settings::getInstance().getFont3());
+    QFontMetrics fm(Settings::getFont3());
 
-    lbl_caption->setFont(Settings::getInstance().getFont2());
+    lbl_caption->setFont(Settings::getFont2());
 
-    lbl_language->setFont(Settings::getInstance().getFont3());
-    lbl_language_detailed->setFont(Settings::getInstance().getFont4());
-    cmb_language->setFont(Settings::getInstance().getFont3());
+    lbl_language->setFont(Settings::getFont3());
+    lbl_language_detailed->setFont(Settings::getFont4());
+    cmb_language->setFont(Settings::getFont3());
     cmb_language->setIconSize(QSize(fm.lineSpacing(), fm.lineSpacing()));
     cmb_language->view()->setIconSize(
         QSize(fm.lineSpacing() * 3, fm.lineSpacing() * 3));
 
-    lbl_theme->setFont(Settings::getInstance().getFont3());
-    lbl_theme_detailed->setFont(Settings::getInstance().getFont4());
-    cmb_theme->setFont(Settings::getInstance().getFont3());
+    lbl_theme->setFont(Settings::getFont3());
+    lbl_theme_detailed->setFont(Settings::getFont4());
+    cmb_theme->setFont(Settings::getFont3());
     cmb_theme->setIconSize(QSize(fm.lineSpacing(), fm.lineSpacing()));
     cmb_theme->view()->setIconSize(
         QSize(fm.lineSpacing() * 3, fm.lineSpacing() * 3));
 
-    lbl_clickSound->setFont(Settings::getInstance().getFont3());
-    lbl_clickSound_detailed->setFont(Settings::getInstance().getFont4());
-    ckb_clickSound->setFont(Settings::getInstance().getFont3());
+    lbl_clickSound->setFont(Settings::getFont3());
+    lbl_clickSound_detailed->setFont(Settings::getFont4());
+    ckb_clickSound->setFont(Settings::getFont3());
 
-    lbl_tableStyle->setFont(Settings::getInstance().getFont3());
-    lbl_tableStyle_detailed->setFont(Settings::getInstance().getFont4());
-    cmb_tableStyle->setFont(Settings::getInstance().getFont3());
+    lbl_tableStyle->setFont(Settings::getFont3());
+    lbl_tableStyle_detailed->setFont(Settings::getFont4());
+    cmb_tableStyle->setFont(Settings::getFont3());
     cmb_tableStyle->setIconSize(QSize(fm.lineSpacing(), fm.lineSpacing()));
     cmb_tableStyle->view()->setIconSize(
         QSize(fm.lineSpacing() * 3, fm.lineSpacing() * 3));
 
-    lbl_centralPointStyle->setFont(Settings::getInstance().getFont3());
-    lbl_centralPointStyle_detailed->setFont(Settings::getInstance().getFont4());
-    cmb_centralPointStyle->setFont(Settings::getInstance().getFont3());
+    lbl_centralPointStyle->setFont(Settings::getFont3());
+    lbl_centralPointStyle_detailed->setFont(Settings::getFont4());
+    cmb_centralPointStyle->setFont(Settings::getFont3());
     cmb_centralPointStyle->setIconSize(
         QSize(fm.lineSpacing(), fm.lineSpacing()));
     cmb_centralPointStyle->view()->setIconSize(
         QSize(fm.lineSpacing() * 3, fm.lineSpacing() * 3));
 
-    lbl_fontMaxSize->setFont(Settings::getInstance().getFont3());
-    lbl_fontMaxSize_detailed->setFont(Settings::getInstance().getFont4());
-    cmb_fontMaxSize->setFont(Settings::getInstance().getFont3());
+    lbl_fontMaxSize->setFont(Settings::getFont3());
+    lbl_fontMaxSize_detailed->setFont(Settings::getFont4());
+    cmb_fontMaxSize->setFont(Settings::getFont3());
 
-    lbl_tableScale->setFont(Settings::getInstance().getFont3());
-    lbl_tableScale_detailed->setFont(Settings::getInstance().getFont4());
-    cmb_tableScale->setFont(Settings::getInstance().getFont3());
+    lbl_tableScale->setFont(Settings::getFont3());
+    lbl_tableScale_detailed->setFont(Settings::getFont4());
+    cmb_tableScale->setFont(Settings::getFont3());
 
-    lbl_showTimer->setFont(Settings::getInstance().getFont3());
-    lbl_showTimer_detailed->setFont(Settings::getInstance().getFont4());
-    ckb_showTimer->setFont(Settings::getInstance().getFont3());
+    lbl_showTimer->setFont(Settings::getFont3());
+    lbl_showTimer_detailed->setFont(Settings::getFont4());
+    ckb_showTimer->setFont(Settings::getFont3());
 
-    lbl_keepAwake->setFont(Settings::getInstance().getFont3());
-    lbl_keepAwake_detailed->setFont(Settings::getInstance().getFont4());
-    ckb_keepAwake->setFont(Settings::getInstance().getFont3());
+    lbl_keepAwake->setFont(Settings::getFont3());
+    lbl_keepAwake_detailed->setFont(Settings::getFont4());
+    ckb_keepAwake->setFont(Settings::getFont3());
 
-    okBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.15);
-    okBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
+    okBtn->setMinimumHeight(Settings::getLogicalDPI() * 0.15);
+    okBtn->setMaximumHeight(Settings::getLogicalDPI() * 0.25);
 
     QWidget::resizeEvent(event);
 }
@@ -485,50 +485,50 @@ void SettingsWidget::showEvent(QShowEvent *event) {
 }
 
 void SettingsWidget::languageChange(QString s) {
-    Settings::getInstance().setLanguage(s);
+    Settings::setLanguage(s);
     Language::getInstance().notifyAll();
 }
 
 void SettingsWidget::themeChange(QString s) {
-    Settings::getInstance().setTheme(s);
+    Settings::setTheme(s);
     Theme::getInstance().notifyAll();
 }
 
 void SettingsWidget::clickSoundChange(int state) {
     if (state == Qt::Checked)
-        Settings::getInstance().setClickSound(true);
+        Settings::setClickSound(true);
     else if (state == Qt::Unchecked)
-        Settings::getInstance().setClickSound(false);
+        Settings::setClickSound(false);
 }
 
 void SettingsWidget::tableStyleChange(QString s) {
-    Settings::getInstance().setTableStyle(deSerializeTableStyle(s));
+    Settings::setTableStyle(deSerializeTableStyle(s));
 }
 
 void SettingsWidget::centralPointStyleChange(QString s) {
-    Settings::getInstance().setCentralPointStyle(
+    Settings::setCentralPointStyle(
         deSerializeCentralPointStyle(s));
 }
 
 void SettingsWidget::fontMaxSizeChange(QString s) {
-    Settings::getInstance().setFontMaxSize(s.toInt());
+    Settings::setFontMaxSize(s.toInt());
 }
 
 void SettingsWidget::tableScaleChange(QString s) {
     s.resize(s.size() - 1);
-    Settings::getInstance().setTableScale(s.toInt());
+    Settings::setTableScale(s.toInt());
 }
 
 void SettingsWidget::showTimerChange(int state) {
     if (state == Qt::Checked)
-        Settings::getInstance().setShowTimer(true);
+        Settings::setShowTimer(true);
     else if (state == Qt::Unchecked)
-        Settings::getInstance().setShowTimer(false);
+        Settings::setShowTimer(false);
 }
 
 void SettingsWidget::keepAwakeChange(int state) {
     if (state == Qt::Checked)
-        Settings::getInstance().setKeepAwake(true);
+        Settings::setKeepAwake(true);
     else if (state == Qt::Unchecked)
-        Settings::getInstance().setKeepAwake(false);
+        Settings::setKeepAwake(false);
 }

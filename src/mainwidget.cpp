@@ -69,7 +69,7 @@ void MainWidget::showHelp() {
 
 void MainWidget::onThemeChange() {
     QString style;
-    if (Settings::getInstance().getTheme() == "DarkTheme") {
+    if (Settings::getTheme() == "DarkTheme") {
         style += "QWidget {background-color: black; color: white;}";
         style += "QPushButton {\
                     border: 1px solid #6f6f71;\
@@ -77,7 +77,7 @@ void MainWidget::onThemeChange() {
                     background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                       stop: 0 #111111, stop: 1 #222222);\
                  }";
-    } else if (Settings::getInstance().getTheme() == "GreyTheme") {
+    } else if (Settings::getTheme() == "GreyTheme") {
         style +=
             "QWidget {background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                             stop: 0 #777777, stop: 1 #555555);\
@@ -88,7 +88,7 @@ void MainWidget::onThemeChange() {
                     background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\
                                                       stop: 0 #AAAAAA, stop: 1 #888888);\
                  }";
-    } else if (Settings::getInstance().getTheme() == "LightTheme") {
+    } else if (Settings::getTheme() == "LightTheme") {
         style += "QWidget {background-color: #EEEEEE; color: black;}";
         style += "QPushButton {\
                     border: 1px solid #AAAAAA;\
@@ -124,13 +124,13 @@ void MainWidget::keyPressEvent(QKeyEvent *event) {
             settings.getLanguage().setLanguage("en");
         settings.getLanguage().notifyAll();
     } else if (event->key() == Qt::Key_T) {
-        if (Settings::getInstance().getTheme() == "DarkTheme")
-            Settings::getInstance().setTheme("GreyTheme");
-        else if (Settings::getInstance().getTheme() == "GreyTheme")
-            Settings::getInstance().setTheme("LightTheme");
+        if (Settings::getTheme() == "DarkTheme")
+            Settings::setTheme("GreyTheme");
+        else if (Settings::getTheme() == "GreyTheme")
+            Settings::setTheme("LightTheme");
         else
-            Settings::getInstance().setTheme("DarkTheme");
-        Settings::getInstance().notifyAll();
+            Settings::setTheme("DarkTheme");
+        Settings::notifyAll();
     } else if (event->key() == Qt::Key_1)
         stackLayout->setCurrentWidget(setupWgt);
     else if (event->key() == Qt::Key_2)

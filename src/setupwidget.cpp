@@ -45,7 +45,7 @@ SetupWidget::SetupWidget(QWidget *wgt) : QWidget(wgt) {
     hLayout2->addWidget(btn_dec);
 
     label = new QLabel;
-    label->setFont(Settings::getInstance().getFont3());
+    label->setFont(Settings::getFont3());
     label->setAlignment(Qt::AlignCenter);
     label->setAttribute(Qt::WA_TranslucentBackground);
     hLayout2->addWidget(label);
@@ -68,7 +68,7 @@ SetupWidget::SetupWidget(QWidget *wgt) : QWidget(wgt) {
     vLayout->addWidget(schulteWgt, 10);
 
     startBtn = new QPushButton;
-    startBtn->setFont(Settings::getInstance().getFont3());
+    startBtn->setFont(Settings::getFont3());
     connect(startBtn, SIGNAL(clicked()), SIGNAL(startExercise()));
     vLayout->addWidget(startBtn, 1);
     setLayout(vLayout);
@@ -80,8 +80,7 @@ void SetupWidget::deleteAllStats() {
     MessageBox *msgBox = new MessageBox;
     msgBox->setText(msgDeleteAllStats);
     if (msgBox->exec() == QDialog::DialogCode::Accepted) {
-        Settings::getInstance().removeAllTableStats(
-            Settings::getInstance().getNumCells());
+        Settings::removeAllTableStats(Settings::getNumCells());
     }
     delete msgBox;
 
@@ -95,8 +94,7 @@ void SetupWidget::deleteLastStats() {
     MessageBox *msgBox = new MessageBox;
     msgBox->setText(msgDeleteLastStats);
     if (msgBox->exec() == QDialog::DialogCode::Accepted)
-        Settings::getInstance().removeLastTableStats(
-            Settings::getInstance().getNumCells());
+        Settings::removeLastTableStats(Settings::getNumCells());
     delete msgBox;
 
     Sound::getInstance().switching();
@@ -122,18 +120,18 @@ void SetupWidget::incBtn() {
 }
 
 void SetupWidget::sliderChanged(int value) {
-    numCellsChanged(Settings::getInstance().getNumCellsRangeCache()[value]);
+    numCellsChanged(Settings::getNumCellsRangeCache()[value]);
 }
 
 void SetupWidget::numCellsChanged(int newNumCells) {
-    Settings::getInstance().setNumCells(newNumCells);
+    Settings::setNumCells(newNumCells);
 
-    Settings::getInstance().generateSeedForSchulte();
-    schulteWgt->generate(Settings::getInstance().getSeedForSchulte());
+    Settings::generateSeedForSchulte();
+    schulteWgt->generate(Settings::getSeedForSchulte());
 
     statsWgt->update();
 
-    if (Settings::getInstance().getTableStyle() == TableStyleT::SparseTable)
+    if (Settings::getTableStyle() == TableStyleT::SparseTable)
         label->setText(QString::number(newNumCells));
     else
         label->setText(QString::number(schulteWgt->getQuad_side()) + "x" +
@@ -151,7 +149,7 @@ void SetupWidget::setQSliderStyle() {
     QString slider_quartwidth =
         QString::number(static_cast<int>(slider->height() * 0.225));
 
-    if (Settings::getInstance().getTheme() == "DarkTheme") {
+    if (Settings::getTheme() == "DarkTheme") {
         styleQSlider = "\
             QSlider::groove:horizontal {\
                 border: 1px solid #262626;\
@@ -170,7 +168,7 @@ void SetupWidget::setQSliderStyle() {
                 margin: -" +
                        slider_halfwidth + "px -" + slider_quartwidth + "px;\
             }";
-    } else if (Settings::getInstance().getTheme() == "GreyTheme") {
+    } else if (Settings::getTheme() == "GreyTheme") {
         styleQSlider = "QSlider{background: transparent;}\
             QSlider::groove:horizontal {\
                 border: 1px solid #262626;\
@@ -189,7 +187,7 @@ void SetupWidget::setQSliderStyle() {
                 margin: -" +
                        slider_halfwidth + "px -" + slider_quartwidth + "px;\
             }";
-    } else if (Settings::getInstance().getTheme() == "LightTheme") {
+    } else if (Settings::getTheme() == "LightTheme") {
         styleQSlider = "\
             QSlider::groove:horizontal {\
                 border: 1px solid #262626;\
@@ -214,26 +212,20 @@ void SetupWidget::setQSliderStyle() {
 }
 
 void SetupWidget::onThemeChange() {
-    deleteAllStatsBtn->setIcon(QIcon(":/rcc/" +
-                                     Settings::getInstance().getTheme() +
-                                     "/delete_all_icon.png"));
-    deleteLastStatsBtn->setIcon(QIcon(":/rcc/" +
-                                      Settings::getInstance().getTheme() +
-                                      "/delete_last_icon.png"));
-    settingsBtn->setIcon(QIcon(":/rcc/" + Settings::getInstance().getTheme() +
-                               "/settings_icon.png"));
-    helpBtn->setIcon(QIcon(":/rcc/" + Settings::getInstance().getTheme() +
-                           "/help_icon.png"));
-    likeBtn->setIcon(QIcon(":/rcc/" + Settings::getInstance().getTheme() +
-                           "/like_icon.png"));
+    deleteAllStatsBtn->setIcon(
+        QIcon(":/rcc/" + Settings::getTheme() + "/delete_all_icon.png"));
+    deleteLastStatsBtn->setIcon(
+        QIcon(":/rcc/" + Settings::getTheme() + "/delete_last_icon.png"));
+    settingsBtn->setIcon(
+        QIcon(":/rcc/" + Settings::getTheme() + "/settings_icon.png"));
+    helpBtn->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/help_icon.png"));
+    likeBtn->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/like_icon.png"));
 #ifdef FREE_VERSION
-    proBtn->setIcon(
-        QIcon(":/rcc/" + Settings::getInstance().getTheme() + "/pro_icon.png"));
+    proBtn->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/pro_icon.png"));
 #endif
-    btn_dec->setIcon(QIcon(":/rcc/" + Settings::getInstance().getTheme() +
-                           "/left_icon.png"));
-    btn_inc->setIcon(QIcon(":/rcc/" + Settings::getInstance().getTheme() +
-                           "/right_icon.png"));
+    btn_dec->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/left_icon.png"));
+    btn_inc->setIcon(
+        QIcon(":/rcc/" + Settings::getTheme() + "/right_icon.png"));
 
     setQSliderStyle();
 }
@@ -265,8 +257,8 @@ void SetupWidget::resizeEvent(QResizeEvent *event) {
              proBtn,
 #endif
              btn_dec, label, btn_inc, slider, startBtn}) {
-        wgt->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.15);
-        wgt->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
+        wgt->setMinimumHeight(Settings::getLogicalDPI() * 0.15);
+        wgt->setMaximumHeight(Settings::getLogicalDPI() * 0.25);
     }
 
     setQSliderStyle();
@@ -278,13 +270,10 @@ void SetupWidget::showEvent(QShowEvent *event) {
     startBtn->setFocus();
 
     slider->blockSignals(true);
-    slider->setRange(0, Settings::getInstance().getNumCellsRangeCache().size() -
-                            1);
+    slider->setRange(0, Settings::getNumCellsRangeCache().size() - 1);
     slider->blockSignals(false);
-    for (int i = 0; i < Settings::getInstance().getNumCellsRangeCache().size();
-         i++) {
-        if (Settings::getInstance().getNumCellsRangeCache()[i] ==
-            Settings::getInstance().getNumCells()) {
+    for (int i = 0; i < Settings::getNumCellsRangeCache().size(); i++) {
+        if (Settings::getNumCellsRangeCache()[i] == Settings::getNumCells()) {
             slider->setValue(3);
             slider->setValue(121);
             slider->setValue(i);
@@ -292,8 +281,8 @@ void SetupWidget::showEvent(QShowEvent *event) {
         }
     }
 
-    Settings::getInstance().generateSeedForSchulte();
-    schulteWgt->generate(Settings::getInstance().getSeedForSchulte());
+    Settings::generateSeedForSchulte();
+    schulteWgt->generate(Settings::getSeedForSchulte());
 
     QWidget::showEvent(event);
 }
@@ -316,7 +305,7 @@ void SetupWidget::paintEvent(QPaintEvent *event) {
 
 void MessageBox::onThemeChange() {
     QString style;
-    if (Settings::getInstance().getTheme() == "DarkTheme") {
+    if (Settings::getTheme() == "DarkTheme") {
         style += "QWidget {background-color: black; color: white;}";
         style += "QPushButton {\
                     border: 1px solid #6f6f71;\
@@ -325,7 +314,7 @@ void MessageBox::onThemeChange() {
                                                       stop: 0 #111111, stop: 1 #222222);\
                  }";
         style += "QDialog{border:1px solid gray}";
-    } else if (Settings::getInstance().getTheme() == "GreyTheme") {
+    } else if (Settings::getTheme() == "GreyTheme") {
         style +=
             "QWidget {background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                             stop: 0 #999999, stop: 1 #777777);\
@@ -337,7 +326,7 @@ void MessageBox::onThemeChange() {
                                                       stop: 0 #AAAAAA, stop: 1 #BBBBBB);\
                  }";
         style += "QDialog{border:1px solid black}";
-    } else if (Settings::getInstance().getTheme() == "LightTheme") {
+    } else if (Settings::getTheme() == "LightTheme") {
         style += "QWidget {background-color: #EEEEEE; color: black;}";
         style += "QPushButton {\
                     border: 1px solid #AAAAAA;\
@@ -373,40 +362,39 @@ void MessageBox::resizeEvent(QResizeEvent *event) {
     setMinimumWidth(QApplication::primaryScreen()->size().width() * 0.8);
 #endif
 
-    okBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
-    okBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.30);
+    okBtn->setMinimumHeight(Settings::getLogicalDPI() * 0.25);
+    okBtn->setMaximumHeight(Settings::getLogicalDPI() * 0.30);
 
-    cancelBtn->setMinimumHeight(Settings::getInstance().getLogicalDPI() * 0.25);
-    cancelBtn->setMaximumHeight(Settings::getInstance().getLogicalDPI() * 0.30);
+    cancelBtn->setMinimumHeight(Settings::getLogicalDPI() * 0.25);
+    cancelBtn->setMaximumHeight(Settings::getLogicalDPI() * 0.30);
 
     QDialog::resizeEvent(event);
 }
 
 MessageBox::MessageBox(QWidget *wgt) : QDialog(wgt) {
     vLayout = new QVBoxLayout;
-    vLayout->setContentsMargins(Settings::getInstance().getLogicalDPI() * 0.05,
-                                Settings::getInstance().getLogicalDPI() * 0.05,
-                                Settings::getInstance().getLogicalDPI() * 0.05,
-                                Settings::getInstance().getLogicalDPI() * 0.05);
+    vLayout->setContentsMargins(
+        Settings::getLogicalDPI() * 0.05, Settings::getLogicalDPI() * 0.05,
+        Settings::getLogicalDPI() * 0.05, Settings::getLogicalDPI() * 0.05);
     lbl = new QLabel;
-    lbl->setFont(Settings::getInstance().getFont3());
+    lbl->setFont(Settings::getFont3());
     lbl->setWordWrap(true);
     lbl->setAttribute(Qt::WA_TranslucentBackground);
     lbl->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    QFontMetrics fm(Settings::getInstance().getFont3());
+    QFontMetrics fm(Settings::getFont3());
     lbl->setMinimumHeight(fm.lineSpacing() * 3);
     vLayout->addWidget(lbl);
 
-    vLayout->addSpacing(Settings::getInstance().getLogicalDPI() * 0.20);
+    vLayout->addSpacing(Settings::getLogicalDPI() * 0.20);
 
     hLayout = new QHBoxLayout;
     okBtn = new QPushButton;
-    okBtn->setFont(Settings::getInstance().getFont3());
+    okBtn->setFont(Settings::getFont3());
     connect(okBtn, SIGNAL(clicked()), SLOT(accept()));
     hLayout->addWidget(okBtn);
 
     cancelBtn = new QPushButton;
-    cancelBtn->setFont(Settings::getInstance().getFont3());
+    cancelBtn->setFont(Settings::getFont3());
     connect(cancelBtn, SIGNAL(clicked()), SLOT(reject()));
     hLayout->addWidget(cancelBtn);
     vLayout->addLayout(hLayout);
