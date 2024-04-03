@@ -75,7 +75,7 @@ SetupWidget::SetupWidget(QWidget *wgt) : QWidget(wgt) {
 }
 
 void SetupWidget::deleteAllStats() {
-    Sound::getInstance().switching();
+    Sound::switching();
 
     MessageBox *msgBox = new MessageBox;
     msgBox->setText(msgDeleteAllStats);
@@ -84,12 +84,12 @@ void SetupWidget::deleteAllStats() {
     }
     delete msgBox;
 
-    Sound::getInstance().switching();
+    Sound::switching();
     statsWgt->update();
 }
 
 void SetupWidget::deleteLastStats() {
-    Sound::getInstance().switching();
+    Sound::switching();
 
     MessageBox *msgBox = new MessageBox;
     msgBox->setText(msgDeleteLastStats);
@@ -97,24 +97,24 @@ void SetupWidget::deleteLastStats() {
         Settings::removeLastTableStats(Settings::getNumCells());
     delete msgBox;
 
-    Sound::getInstance().switching();
+    Sound::switching();
     statsWgt->update();
 }
 
 void SetupWidget::likeApp() {
-    Sound::getInstance().switching();
+    Sound::switching();
     QDesktopServices::openUrl(QUrl("https://play.google.com/store/apps/"
                                    "details?id=org.tapmyapp.sparseshulte"));
 }
 
 void SetupWidget::decBtn() {
-    Sound::getInstance().click();
+    Sound::click();
 
     slider->setValue(slider->value() - 1);
 }
 
 void SetupWidget::incBtn() {
-    Sound::getInstance().click();
+    Sound::click();
 
     slider->setValue(slider->value() + 1);
 }

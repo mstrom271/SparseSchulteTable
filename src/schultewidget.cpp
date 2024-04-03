@@ -201,7 +201,7 @@ void SchulteWidget::mousePressEvent(QMouseEvent *event) {
                 if (table_sequence[index] == Settings::getNumCells())
                     emit done();
                 else
-                    Sound::getInstance().click();
+                    Sound::click();
                 table_sequence[index] = emptyCell;
                 update();
             }

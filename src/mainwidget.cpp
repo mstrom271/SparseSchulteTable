@@ -46,25 +46,25 @@ MainWidget::MainWidget(QWidget *wgt) : QWidget(wgt) {
 }
 
 void MainWidget::startExercise() {
-    Sound::getInstance().switching();
+    Sound::switching();
 
     stackLayout->setCurrentWidget(exerciseWgt);
 }
 
 void MainWidget::showSetup() {
-    Sound::getInstance().switching();
+    Sound::switching();
 
     stackLayout->setCurrentWidget(setupWgt);
 }
 
 void MainWidget::showSettings() {
-    Sound::getInstance().switching();
+    Sound::switching();
 
     stackLayout->setCurrentWidget(settingsWgt);
 }
 
 void MainWidget::showHelp() {
-    Sound::getInstance().switching();
+    Sound::switching();
 
     stackLayout->setCurrentWidget(helpWgt);
 }
@@ -120,7 +120,7 @@ bool MainWidget::event(QEvent *event) {
 void MainWidget::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Back || event->key() == Qt::Key_Backspace) {
         if (stackLayout->currentWidget() != setupWgt) {
-            Sound::getInstance().switching();
+            Sound::switching();
             stackLayout->setCurrentWidget(setupWgt);
         } else
             QApplication::quit();
