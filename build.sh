@@ -44,7 +44,7 @@ mkdir -p $DESTINATION_DIR
 while IFS= read -r lang
 do
     lang=$(echo "$lang" | tr -d '\r')
-    ${QT_HOST_PATH}/bin/lupdate ./src/ -ts ./translations/translation_${lang}.ts
+    ${QT_HOST_PATH}/bin/lupdate ./src/ -ts ./translations/translation_${lang}.ts #-no-obsolete
     ${QT_HOST_PATH}/bin/lrelease ./translations/*.ts
 done < "./translations/list.txt"
 mkdir -p ./rcc/rcc

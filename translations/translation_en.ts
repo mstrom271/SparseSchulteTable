@@ -28,10 +28,6 @@
 <context>
     <name>HelpWidget</name>
     <message>
-        <source>No Ads!</source>
-        <translation type="vanished">No Ads!</translation>
-    </message>
-    <message>
         <location filename="../src/helpwidget.cpp" line="16"/>
         <source>en</source>
         <translation>en</translation>
@@ -53,13 +49,6 @@
         <location filename="../src/setupwidget.cpp" line="345"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
-    </message>
-</context>
-<context>
-    <name>SettignsWidget</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">Ok</translation>
     </message>
 </context>
 <context>
@@ -219,126 +208,6 @@
         <location filename="../src/statswidget.cpp" line="18"/>
         <source>Delete all records for this table?</source>
         <translation>Delete all records for this table?</translation>
-    </message>
-</context>
-<context>
-    <name>advertisingWidget</name>
-    <message>
-        <source>Place for advertisement</source>
-        <translation type="vanished">Place for advertisement</translation>
-    </message>
-</context>
-<context>
-    <name>competitionWidget</name>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Cancel</translation>
-    </message>
-    <message>
-        <source>Done</source>
-        <translation type="vanished">Done</translation>
-    </message>
-    <message>
-        <source>sec</source>
-        <translation type="vanished">sec</translation>
-    </message>
-</context>
-<context>
-    <name>exerciseWidget</name>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Cancel</translation>
-    </message>
-    <message>
-        <source>Done</source>
-        <translation type="vanished">Done</translation>
-    </message>
-    <message>
-        <source>sec</source>
-        <translation type="vanished">sec</translation>
-    </message>
-</context>
-<context>
-    <name>helpWidget</name>
-    <message>
-        <source>No Ads!</source>
-        <translation type="vanished">No Ads!</translation>
-    </message>
-    <message>
-        <source>en</source>
-        <translation type="vanished">en</translation>
-    </message>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">Ok</translation>
-    </message>
-    <message>
-        <source>TBA</source>
-        <translation type="vanished">TBA</translation>
-    </message>
-</context>
-<context>
-    <name>messageBox</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">Ok</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="vanished">Cancel</translation>
-    </message>
-</context>
-<context>
-    <name>settignsWidget</name>
-    <message>
-        <source>Ok</source>
-        <translation type="vanished">Ok</translation>
-    </message>
-</context>
-<context>
-    <name>setupWidget</name>
-    <message>
-        <source>Start</source>
-        <translation type="vanished">Start</translation>
-    </message>
-    <message>
-        <source>Delete all records for this table?</source>
-        <translation type="vanished">Delete all records for this table?</translation>
-    </message>
-    <message>
-        <source>Delete last record from statistics?</source>
-        <translation type="vanished">Delete last record from statistics?</translation>
-    </message>
-</context>
-<context>
-    <name>statsWidget</name>
-    <message>
-        <source>min</source>
-        <translation type="vanished">min</translation>
-    </message>
-    <message>
-        <source>sec</source>
-        <translation type="vanished">sec</translation>
-    </message>
-    <message>
-        <source>max</source>
-        <translation type="vanished">max</translation>
-    </message>
-    <message>
-        <source>last</source>
-        <translation type="vanished">last</translation>
-    </message>
-    <message>
-        <source>There is no statistics for this table</source>
-        <translation type="vanished">There is no statistics for this table</translation>
-    </message>
-    <message>
-        <source>Delete last record from statistics?</source>
-        <translation type="vanished">Delete last record from statistics?</translation>
-    </message>
-    <message>
-        <source>Delete all records for this table?</source>
-        <translation type="vanished">Delete all records for this table?</translation>
     </message>
 </context>
 </TS>
