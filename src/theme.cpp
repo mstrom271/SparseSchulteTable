@@ -19,7 +19,7 @@ void Theme::notifyAll() {
 }
 
 void Theme::applyTheme(QString theme) {
-    // TODO:
+    // QString style;
     // static_cast<QApplication
     // *>(QApplication::instance())->setStyleSheet(style);
 }

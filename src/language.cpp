@@ -43,9 +43,12 @@ QString Language::getSystemLanguage() {
     return correct(lang);
 }
 
+QStringList Language::getLanguageList() { return {"en", "ru"}; }
+
 // check if lang is allowed. Return default, if lang is incorrect
 QString Language::correct(QString lang) {
-    if (lang != "ru" && lang != "en")
-        lang = "en";
+    QStringList langAllowed = getLanguageList();
+    if (!langAllowed.contains(lang))
+        return langAllowed.front();
     return lang;
 }

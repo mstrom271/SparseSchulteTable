@@ -23,5 +23,6 @@ class Language {
     static void applyLanguage(QString lang);
     static QString getSystemLanguage();
     static void notifyAll();
+    static QStringList getLanguageList();
     static QString correct(QString language);
 };
