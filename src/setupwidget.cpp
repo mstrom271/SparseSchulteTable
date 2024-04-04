@@ -149,7 +149,7 @@ void SetupWidget::setQSliderStyle() {
     QString slider_quartwidth =
         QString::number(static_cast<int>(slider->height() * 0.225));
 
-    if (Settings::getTheme() == "DarkTheme") {
+    if (Theme::getEffectiveTheme() == "DarkTheme") {
         styleQSlider = "\
             QSlider::groove:horizontal {\
                 border: 1px solid #262626;\
@@ -168,7 +168,7 @@ void SetupWidget::setQSliderStyle() {
                 margin: -" +
                        slider_halfwidth + "px -" + slider_quartwidth + "px;\
             }";
-    } else if (Settings::getTheme() == "GreyTheme") {
+    } else if (Theme::getEffectiveTheme() == "GreyTheme") {
         styleQSlider = "QSlider{background: transparent;}\
             QSlider::groove:horizontal {\
                 border: 1px solid #262626;\
@@ -187,7 +187,7 @@ void SetupWidget::setQSliderStyle() {
                 margin: -" +
                        slider_halfwidth + "px -" + slider_quartwidth + "px;\
             }";
-    } else if (Settings::getTheme() == "LightTheme") {
+    } else if (Theme::getEffectiveTheme() == "LightTheme") {
         styleQSlider = "\
             QSlider::groove:horizontal {\
                 border: 1px solid #262626;\
@@ -213,19 +213,23 @@ void SetupWidget::setQSliderStyle() {
 
 void SetupWidget::onThemeChange() {
     deleteAllStatsBtn->setIcon(
-        QIcon(":/rcc/" + Settings::getTheme() + "/delete_all_icon.png"));
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/delete_all_icon.png"));
     deleteLastStatsBtn->setIcon(
-        QIcon(":/rcc/" + Settings::getTheme() + "/delete_last_icon.png"));
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/delete_last_icon.png"));
     settingsBtn->setIcon(
-        QIcon(":/rcc/" + Settings::getTheme() + "/settings_icon.png"));
-    helpBtn->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/help_icon.png"));
-    likeBtn->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/like_icon.png"));
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/settings_icon.png"));
+    helpBtn->setIcon(
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/help_icon.png"));
+    likeBtn->setIcon(
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/like_icon.png"));
 #ifdef FREE_VERSION
-    proBtn->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/pro_icon.png"));
+    proBtn->setIcon(
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/pro_icon.png"));
 #endif
-    btn_dec->setIcon(QIcon(":/rcc/" + Settings::getTheme() + "/left_icon.png"));
+    btn_dec->setIcon(
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/left_icon.png"));
     btn_inc->setIcon(
-        QIcon(":/rcc/" + Settings::getTheme() + "/right_icon.png"));
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/right_icon.png"));
 
     setQSliderStyle();
 }
@@ -305,7 +309,7 @@ void SetupWidget::paintEvent(QPaintEvent *event) {
 
 void MessageBox::onThemeChange() {
     QString style;
-    if (Settings::getTheme() == "DarkTheme") {
+    if (Theme::getEffectiveTheme() == "DarkTheme") {
         style += "QWidget {background-color: black; color: white;}";
         style += "QPushButton {\
                     border: 1px solid #6f6f71;\
@@ -314,7 +318,7 @@ void MessageBox::onThemeChange() {
                                                       stop: 0 #111111, stop: 1 #222222);\
                  }";
         style += "QDialog{border:1px solid gray}";
-    } else if (Settings::getTheme() == "GreyTheme") {
+    } else if (Theme::getEffectiveTheme() == "GreyTheme") {
         style +=
             "QWidget {background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                             stop: 0 #999999, stop: 1 #777777);\
@@ -326,7 +330,7 @@ void MessageBox::onThemeChange() {
                                                       stop: 0 #AAAAAA, stop: 1 #BBBBBB);\
                  }";
         style += "QDialog{border:1px solid black}";
-    } else if (Settings::getTheme() == "LightTheme") {
+    } else if (Theme::getEffectiveTheme() == "LightTheme") {
         style += "QWidget {background-color: #EEEEEE; color: black;}";
         style += "QPushButton {\
                     border: 1px solid #AAAAAA;\

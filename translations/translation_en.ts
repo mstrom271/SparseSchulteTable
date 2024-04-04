@@ -28,9 +28,8 @@
 <context>
     <name>HelpWidget</name>
     <message>
-        <location filename="../src/helpwidget.cpp" line="16"/>
         <source>en</source>
-        <translation>en</translation>
+        <translation type="vanished">en</translation>
     </message>
     <message>
         <location filename="../src/helpwidget.cpp" line="22"/>
@@ -41,12 +40,12 @@
 <context>
     <name>MessageBox</name>
     <message>
-        <location filename="../src/setupwidget.cpp" line="344"/>
+        <location filename="../src/setupwidget.cpp" line="348"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>
     <message>
-        <location filename="../src/setupwidget.cpp" line="345"/>
+        <location filename="../src/setupwidget.cpp" line="349"/>
         <source>Cancel</source>
         <translation>Cancel</translation>
     </message>
@@ -157,17 +156,17 @@
 <context>
     <name>SetupWidget</name>
     <message>
-        <location filename="../src/setupwidget.cpp" line="234"/>
+        <location filename="../src/setupwidget.cpp" line="238"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="../src/setupwidget.cpp" line="235"/>
+        <location filename="../src/setupwidget.cpp" line="239"/>
         <source>Delete all records for this table?</source>
         <translation>Delete all records for this table?</translation>
     </message>
     <message>
-        <location filename="../src/setupwidget.cpp" line="236"/>
+        <location filename="../src/setupwidget.cpp" line="240"/>
         <source>Delete last record from statistics?</source>
         <translation>Delete last record from statistics?</translation>
     </message>

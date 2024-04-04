@@ -17,8 +17,9 @@ class Theme {
   public:
     static Theme &getInstance();
 
-    static void applyTheme(QString theme);
+    static void applyTheme();
     static QString getSystemTheme();
+    static QString getEffectiveTheme();
     static void notifyAll();
     static QStringList getThemeList();
     static QString correct(QString theme);

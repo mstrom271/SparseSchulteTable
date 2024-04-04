@@ -277,10 +277,10 @@ void SettingsWidget::onThemeChange() {
 #ifdef Q_OS_ANDROID
     QColor bgColor;
     QColor inversebgColor;
-    if (Settings::getTheme() == "DarkTheme") {
+    if (Theme::getEffectiveTheme() == "DarkTheme") {
         bgColor = Qt::black;
         inversebgColor = Qt::white;
-    } else if (Settings::getTheme() == "GreyTheme") {
+    } else if (Theme::getEffectiveTheme() == "GreyTheme") {
         bgColor = QColor("#777777");
         inversebgColor = Qt::black;
     } else {
@@ -323,34 +323,34 @@ void SettingsWidget::onThemeChange() {
 #endif
 
     cmb_language->clear();
-    for (auto &lang : {"en", "ru"})
-        cmb_language->addItem(
-            QIcon(":/rcc/" + Settings::getTheme() + "/" + lang + "_icon.png"),
-            lang);
+    for (auto &lang : Language::getLanguageList())
+        cmb_language->addItem(QIcon(":/rcc/" + Theme::getEffectiveTheme() +
+                                    "/" + lang + "_icon.png"),
+                              lang);
     cmb_language->setCurrentText(Settings::getLanguage());
 
     cmb_theme->clear();
     for (auto &theme : Theme::getThemeList())
-        cmb_theme->addItem(
-            QIcon(":/rcc/" + Settings::getTheme() + "/" + theme + "_icon.jpg"),
-            theme);
+        cmb_theme->addItem(QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/" +
+                                 theme + "_icon.jpg"),
+                           theme);
     cmb_theme->setCurrentText(Settings::getTheme());
 
     cmb_tableStyle->clear();
     for (auto &tableType : {serializeTableStyle(TableStyleT::ClassicTable),
                             serializeTableStyle(TableStyleT::SparseTable)})
-        cmb_tableStyle->addItem(QIcon(":/rcc/" + Settings::getTheme() + "/" +
-                                      tableType + "_icon.png"),
+        cmb_tableStyle->addItem(QIcon(":/rcc/" + Theme::getEffectiveTheme() +
+                                      "/" + tableType + "_icon.png"),
                                 tableType);
     cmb_tableStyle->setCurrentText(
         serializeTableStyle(Settings::getTableStyle()));
 
     cmb_centralPointStyle->clear();
     cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Settings::getTheme() + "/eye_icon.png"),
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/eye_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::EyePic));
     cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Settings::getTheme() + "/greendot_icon.png"),
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/greendot_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::GreenDot));
     cmb_centralPointStyle->addItem(
         serializeCentralPointStyle(CentralPointStyleT::None));
@@ -476,9 +476,15 @@ void SettingsWidget::showEvent(QShowEvent *event) {
     QWidget::showEvent(event);
 }
 
-void SettingsWidget::languageChange(QString s) { Settings::setLanguage(s); }
+void SettingsWidget::languageChange(QString s) {
+    Settings::setLanguage(s);
+    Language::applyLanguage();
+}
 
-void SettingsWidget::themeChange(QString s) { Settings::setTheme(s); }
+void SettingsWidget::themeChange(QString s) {
+    Settings::setTheme(s);
+    Theme::applyTheme();
+}
 
 void SettingsWidget::clickSoundChange(int state) {
     if (state == Qt::Checked)

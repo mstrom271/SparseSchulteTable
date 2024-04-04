@@ -12,20 +12,21 @@ constexpr int emptyCell = 999;
 int SchulteWidget::getQuad_side() const { return quad_side; }
 
 void SchulteWidget::onThemeChange() {
-    eyePixmap.load(":/rcc/" + Settings::getTheme() + "/eye_icon.png");
-    greenDotPixmap.load(":/rcc/" + Settings::getTheme() + "/greendot_icon.png");
+    eyePixmap.load(":/rcc/" + Theme::getEffectiveTheme() + "/eye_icon.png");
+    greenDotPixmap.load(":/rcc/" + Theme::getEffectiveTheme() +
+                        "/greendot_icon.png");
 
-    if (Settings::getTheme() == "DarkTheme") {
+    if (Theme::getEffectiveTheme() == "DarkTheme") {
         cellBrush = QColor(0x1A, 0x1A, 0x1A);
         numbersPen = QColor(Qt::white);
         borderPen = QColor(Qt::white);
         borderPen.setWidth(1);
-    } else if (Settings::getTheme() == "GreyTheme") {
+    } else if (Theme::getEffectiveTheme() == "GreyTheme") {
         cellBrush = QColor(0x88, 0x88, 0x88);
         numbersPen = QColor(Qt::black);
         borderPen = QColor(Qt::black);
         borderPen.setWidth(3);
-    } else if (Settings::getTheme() == "LightTheme") {
+    } else if (Theme::getEffectiveTheme() == "LightTheme") {
         cellBrush = QColor(0xDD, 0xDD, 0xDD);
         numbersPen = QColor(Qt::black);
         borderPen = QColor(Qt::black);

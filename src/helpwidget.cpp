@@ -13,7 +13,7 @@ void HelpWidget::onThemeChange() {}
 void HelpWidget::onLanguageChange() {
     QString helpmsg;
 
-    QFile file(":/rcc/help_" + tr("en") + ".html");
+    QFile file(":/rcc/help_" + Language::getEffectiveLanguage() + ".html");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
         helpmsg += file.readAll();
     helpLabel->setText(helpmsg);

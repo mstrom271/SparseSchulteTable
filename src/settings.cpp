@@ -1,8 +1,6 @@
 #include "settings.h"
 #include "config.h"
-#include "language.h"
 #include "serialize.h"
-#include "theme.h"
 #include <QApplication>
 #include <QDataStream>
 #include <QIODevice>
@@ -16,17 +14,8 @@ Settings::Settings() {
     if (FirstRun)
         settings.setValue("/FirstRun", false);
 
-    if (FirstRun)
-        Language = Language::getSystemLanguage();
-    else
-        Language =
-            settings.value("/Language", Language::correct("en")).toString();
-
-    if (FirstRun)
-        Theme = Theme::getSystemTheme();
-    else
-        Theme =
-            settings.value("/Theme", Theme::correct("DarkTheme")).toString();
+    Language = settings.value("/Language", "System").toString();
+    Theme = settings.value("/Theme", "System").toString();
 
     for (int table = 3; table <= 121; table++)
         Stats[table] = deSerializeTableStat(
@@ -152,20 +141,12 @@ bool Settings::getFirstRun() { return Settings::getInstance().FirstRun; }
 
 QString Settings::getLanguage() { return Settings::getInstance().Language; }
 void Settings::setLanguage(QString newLanguage) {
-    newLanguage = Language::correct(newLanguage);
-    Language::applyLanguage(newLanguage);
-    Language::notifyAll();
-
     Settings::getInstance().settings.setValue("/Language", newLanguage);
     Settings::getInstance().Language = newLanguage;
 };
 
 QString Settings::getTheme() { return Settings::getInstance().Theme; }
 void Settings::setTheme(QString newTheme) {
-    newTheme = Theme::correct(newTheme);
-    Theme::applyTheme(newTheme);
-    Theme::notifyAll();
-
     Settings::getInstance().settings.setValue("/Theme", newTheme);
     Settings::getInstance().Theme = newTheme;
 };

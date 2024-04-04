@@ -37,10 +37,8 @@ MainWidget::MainWidget(QWidget *wgt) : QWidget(wgt) {
     setLayout(vLayout);
 
     stackLayout->setCurrentWidget(setupWgt);
-    Theme::applyTheme(Settings::getTheme());
-    Theme::notifyAll();
-    Language::applyLanguage(Settings::getLanguage());
-    Language::notifyAll();
+    Theme::applyTheme();
+    Language::applyLanguage();
 
     setObjectName("MainWidget");
 }
@@ -71,7 +69,7 @@ void MainWidget::showHelp() {
 
 void MainWidget::onThemeChange() {
     QString style;
-    if (Settings::getTheme() == "DarkTheme") {
+    if (Theme::getEffectiveTheme() == "DarkTheme") {
         style += "QWidget {background-color: black; color: white;}";
         style += "QPushButton {\
                     border: 1px solid #6f6f71;\
@@ -79,7 +77,7 @@ void MainWidget::onThemeChange() {
                     background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                       stop: 0 #111111, stop: 1 #222222);\
                  }";
-    } else if (Settings::getTheme() == "GreyTheme") {
+    } else if (Theme::getEffectiveTheme() == "GreyTheme") {
         style +=
             "QWidget {background-color: qlineargradient(x1: 0.5, y1: 1, x2: 0.5, y2: 0,\
                                                             stop: 0 #777777, stop: 1 #555555);\
@@ -90,7 +88,7 @@ void MainWidget::onThemeChange() {
                     background-color: qlineargradient(x1: 0, y1: 0, x2: 1, y2: 1,\
                                                       stop: 0 #AAAAAA, stop: 1 #888888);\
                  }";
-    } else if (Settings::getTheme() == "LightTheme") {
+    } else if (Theme::getEffectiveTheme() == "LightTheme") {
         style += "QWidget {background-color: #EEEEEE; color: black;}";
         style += "QPushButton {\
                     border: 1px solid #AAAAAA;\
