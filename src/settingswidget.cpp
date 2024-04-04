@@ -332,7 +332,7 @@ void SettingsWidget::onThemeChange() {
     cmb_theme->clear();
     for (auto &theme : Theme::getThemeList())
         cmb_theme->addItem(QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/" +
-                                 theme + "_icon.jpg"),
+                                 theme + "_icon.png"),
                            theme);
     cmb_theme->setCurrentText(Settings::getTheme());
 
