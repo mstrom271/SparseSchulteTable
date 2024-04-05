@@ -20,14 +20,14 @@ Sound &Sound::getInstance() {
 }
 
 void Sound::click() {
-    if (Settings::getClickSound()) {
+    if (Settings::getSoundState()) {
         Sound::getInstance().clickSound->stop();
         Sound::getInstance().clickSound->play();
     }
 }
 
 void Sound::switching() {
-    if (Settings::getClickSound()) {
+    if (Settings::getSoundState()) {
         Sound::getInstance().switchingSound->stop();
         Sound::getInstance().switchingSound->play();
     }

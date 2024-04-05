@@ -83,26 +83,26 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
                           Qt::AlignVCenter | Qt::AlignLeft);
     level += 2;
 
-    lbl_clickSound = new QLabel;
-    lbl_clickSound->setWordWrap(true);
-    lbl_clickSound->setAttribute(Qt::WA_TranslucentBackground);
-    gridLayout->addWidget(lbl_clickSound, level, 0,
+    lbl_soundState = new QLabel;
+    lbl_soundState->setWordWrap(true);
+    lbl_soundState->setAttribute(Qt::WA_TranslucentBackground);
+    gridLayout->addWidget(lbl_soundState, level, 0,
                           Qt::AlignBottom | Qt::AlignLeft);
-    lbl_clickSound_detailed = new QLabel;
-    lbl_clickSound_detailed->setWordWrap(true);
-    lbl_clickSound_detailed->setAttribute(Qt::WA_TranslucentBackground);
-    gridLayout->addWidget(lbl_clickSound_detailed, level + 1, 0,
+    lbl_soundState_detailed = new QLabel;
+    lbl_soundState_detailed->setWordWrap(true);
+    lbl_soundState_detailed->setAttribute(Qt::WA_TranslucentBackground);
+    gridLayout->addWidget(lbl_soundState_detailed, level + 1, 0,
                           Qt::AlignTop | Qt::AlignLeft);
 
-    ckb_clickSound = new QCheckBox;
-    ckb_clickSound->setFocusPolicy(Qt::NoFocus);
-    ckb_clickSound->setCheckState(Settings::getClickSound()
+    ckb_soundState = new QCheckBox;
+    ckb_soundState->setFocusPolicy(Qt::NoFocus);
+    ckb_soundState->setCheckState(Settings::getSoundState()
                                       ? Qt::CheckState::Checked
                                       : Qt::CheckState::Unchecked);
-    ckb_clickSound->setAttribute(Qt::WA_TranslucentBackground);
-    QObject::connect(ckb_clickSound, SIGNAL(stateChanged(int)),
-                     SLOT(clickSoundChange(int)));
-    gridLayout->addWidget(ckb_clickSound, level, 1, 2, 1,
+    ckb_soundState->setAttribute(Qt::WA_TranslucentBackground);
+    QObject::connect(ckb_soundState, SIGNAL(stateChanged(int)),
+                     SLOT(soundStateChange(int)));
+    gridLayout->addWidget(ckb_soundState, level, 1, 2, 1,
                           Qt::AlignVCenter | Qt::AlignLeft);
     level += 2;
 
@@ -300,7 +300,7 @@ void SettingsWidget::onThemeChange() {
         QString::number(static_cast<int>(Settings::getLogicalDPI() * 0.15)) +
         "px;\
                            }";
-    ckb_clickSound->setStyleSheet(ckbStyle);
+    ckb_soundState->setStyleSheet(ckbStyle);
     ckb_showTimer->setStyleSheet(ckbStyle);
     ckb_keepAwake->setStyleSheet(ckbStyle);
 
@@ -353,6 +353,7 @@ void SettingsWidget::onThemeChange() {
         QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/greendot_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::GreenDot));
     cmb_centralPointStyle->addItem(
+        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/none_icon.png"),
         serializeCentralPointStyle(CentralPointStyleT::None));
     cmb_centralPointStyle->setCurrentText(
         serializeCentralPointStyle(Settings::getCentralPointStyle()));
@@ -368,8 +369,8 @@ void SettingsWidget::onLanguageChange() {
     lbl_theme->setText(tr("Themes"));
     lbl_theme_detailed->setText(tr("Color of interface elements"));
 
-    lbl_clickSound->setText(tr("Sound"));
-    lbl_clickSound_detailed->setText(tr("Sound of button clicks"));
+    lbl_soundState->setText(tr("Sound"));
+    lbl_soundState_detailed->setText(tr("Sound of button clicks"));
 
     lbl_tableStyle->setText(tr("Table Style"));
     lbl_tableStyle_detailed->setText(tr("Classic or Sparse table"));
@@ -428,9 +429,9 @@ void SettingsWidget::resizeEvent(QResizeEvent *event) {
     cmb_theme->view()->setIconSize(
         QSize(fm.lineSpacing() * 3, fm.lineSpacing() * 3));
 
-    lbl_clickSound->setFont(Settings::getFont3());
-    lbl_clickSound_detailed->setFont(Settings::getFont4());
-    ckb_clickSound->setFont(Settings::getFont3());
+    lbl_soundState->setFont(Settings::getFont3());
+    lbl_soundState_detailed->setFont(Settings::getFont4());
+    ckb_soundState->setFont(Settings::getFont3());
 
     lbl_tableStyle->setFont(Settings::getFont3());
     lbl_tableStyle_detailed->setFont(Settings::getFont4());
@@ -486,11 +487,11 @@ void SettingsWidget::themeChange(QString s) {
     Theme::applyTheme();
 }
 
-void SettingsWidget::clickSoundChange(int state) {
+void SettingsWidget::soundStateChange(int state) {
     if (state == Qt::Checked)
-        Settings::setClickSound(true);
+        Settings::setSoundState(true);
     else if (state == Qt::Unchecked)
-        Settings::setClickSound(false);
+        Settings::setSoundState(false);
 }
 
 void SettingsWidget::tableStyleChange(QString s) {

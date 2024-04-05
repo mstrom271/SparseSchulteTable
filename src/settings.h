@@ -20,7 +20,7 @@ class Settings {
     int FontMaxSize;
     bool KeepAwake;
     bool ShowTimer;
-    bool ClickSound;
+    bool SoundState;
     TableStyleT TableStyle;
     CentralPointStyleT CentralPointStyle;
 
@@ -67,8 +67,8 @@ class Settings {
     static bool getShowTimer();
     static void setShowTimer(bool newShowTimer);
 
-    static bool getClickSound();
-    static void setClickSound(bool newClickSound);
+    static bool getSoundState();
+    static void setSoundState(bool newSoundState);
 
     static TableStyleT getTableStyle();
     static void setTableStyle(TableStyleT newTableStyle);

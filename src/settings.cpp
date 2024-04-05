@@ -26,7 +26,7 @@ Settings::Settings() {
     FontMaxSize = settings.value("/FontMaxSize", 0).toInt();
     KeepAwake = settings.value("/KeepAwake", true).toBool();
     ShowTimer = settings.value("/ShowTimer", true).toBool();
-    ClickSound = settings.value("/ClickSound", false).toBool();
+    SoundState = settings.value("/SoundState", false).toBool();
     TableStyle = deSerializeTableStyle(
         settings
             .value("/TableStyle", serializeTableStyle(TableStyleT::SparseTable))
@@ -110,7 +110,7 @@ void Settings::upgradeOldSettings() {
             {"/language",            "/Language"},
             {"/numcells",            "/NumCells"},
             {"/showtimer",           "/ShowTimer"},
-            {"/clickSound",          "/ClickSound"},
+            {"/clickSound",          "/SoundState"},
             {"/tablescale",          "/TableScale"},
             {"/tablestyle",          "/TableStyle"},
             {"/theme",               "/Theme"},
@@ -217,10 +217,10 @@ void Settings::setShowTimer(bool newShowTimer) {
     Settings::getInstance().ShowTimer = newShowTimer;
 };
 
-bool Settings::getClickSound() { return Settings::getInstance().ClickSound; }
-void Settings::setClickSound(bool newClickSound) {
-    Settings::getInstance().settings.setValue("/ClickSound", newClickSound);
-    Settings::getInstance().ClickSound = newClickSound;
+bool Settings::getSoundState() { return Settings::getInstance().SoundState; }
+void Settings::setSoundState(bool newSoundState) {
+    Settings::getInstance().settings.setValue("/SoundState", newSoundState);
+    Settings::getInstance().SoundState = newSoundState;
 };
 
 TableStyleT Settings::getTableStyle() {

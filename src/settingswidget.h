@@ -25,9 +25,9 @@ class SettingsWidget : public QWidget {
     QLabel *lbl_theme_detailed;
     QComboBox *cmb_theme;
 
-    QLabel *lbl_clickSound;
-    QLabel *lbl_clickSound_detailed;
-    QCheckBox *ckb_clickSound;
+    QLabel *lbl_soundState;
+    QLabel *lbl_soundState_detailed;
+    QCheckBox *ckb_soundState;
 
     QLabel *lbl_tableStyle;
     QLabel *lbl_tableStyle_detailed;
@@ -68,7 +68,7 @@ class SettingsWidget : public QWidget {
   public slots:
     void languageChange(QString s);
     void themeChange(QString s);
-    void clickSoundChange(int state);
+    void soundStateChange(int state);
     void tableStyleChange(QString s);
     void centralPointStyleChange(QString s);
     void fontMaxSizeChange(QString s);
