@@ -187,6 +187,8 @@ void Settings::removeAllTableStats(int table) {
 
 int Settings::getNumCells() { return Settings::getInstance().NumCells; }
 void Settings::setNumCells(int newNumCells) {
+    Settings::getInstance().correctNumCells();
+
     Settings::getInstance().settings.setValue("/NumCells", newNumCells);
     Settings::getInstance().NumCells = newNumCells;
 };
@@ -228,6 +230,9 @@ void Settings::setTableStyle(TableStyleT newTableStyle) {
     Settings::getInstance().settings.setValue(
         "/TableStyle", serializeTableStyle(newTableStyle));
     Settings::getInstance().TableStyle = newTableStyle;
+
+    Settings::getInstance().initNumCellsRangeCache();
+    Settings::correctNumCells();
 };
 
 CentralPointStyleT Settings::getCentralPointStyle() {
@@ -237,6 +242,9 @@ void Settings::setCentralPointStyle(CentralPointStyleT newCentralPointStyle) {
     Settings::getInstance().settings.setValue(
         "/CentralPointStyle", serializeCentralPointStyle(newCentralPointStyle));
     Settings::getInstance().CentralPointStyle = newCentralPointStyle;
+
+    Settings::getInstance().initNumCellsRangeCache();
+    Settings::correctNumCells();
 };
 
 // Temporary settings
@@ -279,13 +287,15 @@ void Settings::initNumCellsRangeCache() {
 
     settings.setValue("/NumCells", NumCells);
 }
-int Settings::correctNumCells(int newNumCells) {
-    auto it = std::lower_bound(
-        std::begin(Settings::getInstance().NumCellsRangeCache),
-        std::end(Settings::getInstance().NumCellsRangeCache), newNumCells);
-    return (it != std::end(Settings::getInstance().NumCellsRangeCache)
-                ? *it
-                : Settings::getInstance().NumCellsRangeCache.last());
+void Settings::correctNumCells() {
+    auto it =
+        std::lower_bound(std::begin(Settings::getInstance().NumCellsRangeCache),
+                         std::end(Settings::getInstance().NumCellsRangeCache),
+                         Settings::getInstance().NumCells);
+    Settings::getInstance().NumCells =
+        (it != std::end(Settings::getInstance().NumCellsRangeCache)
+             ? *it
+             : Settings::getInstance().NumCellsRangeCache.last());
 }
 
 QFont Settings::getFont1() { return Settings::getInstance().Font1; }

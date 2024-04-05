@@ -81,7 +81,7 @@ class Settings {
 
     static QVector<int> getNumCellsRangeCache();
     void initNumCellsRangeCache();
-    static int correctNumCells(int newNumCells);
+    static void correctNumCells();
 
     static double getLogicalDPI();
     static void setLogicalDPI(double newLogicalDPI);
