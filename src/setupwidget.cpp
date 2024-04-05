@@ -222,10 +222,6 @@ void SetupWidget::onThemeChange() {
         QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/help_icon.png"));
     likeBtn->setIcon(
         QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/like_icon.png"));
-#ifdef FREE_VERSION
-    proBtn->setIcon(
-        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/pro_icon.png"));
-#endif
     btn_dec->setIcon(
         QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/left_icon.png"));
     btn_inc->setIcon(
@@ -256,11 +252,7 @@ void SetupWidget::resizeEvent(QResizeEvent *event) {
     // Min and Max sizes of widgets
     for (auto wgt : std::initializer_list<QWidget *>{
              deleteAllStatsBtn, deleteLastStatsBtn, settingsBtn, helpBtn,
-             likeBtn,
-#ifdef FREE_VERSION
-             proBtn,
-#endif
-             btn_dec, label, btn_inc, slider, startBtn}) {
+             likeBtn, btn_dec, label, btn_inc, slider, startBtn}) {
         wgt->setMinimumHeight(Settings::getLogicalDPI() * 0.15);
         wgt->setMaximumHeight(Settings::getLogicalDPI() * 0.25);
     }
@@ -294,12 +286,8 @@ void SetupWidget::showEvent(QShowEvent *event) {
 void SetupWidget::paintEvent(QPaintEvent *event) {
     // icon sizes
     double iconScale = 0.5;
-    for (auto btn :
-         {deleteAllStatsBtn, deleteLastStatsBtn, settingsBtn, helpBtn, likeBtn,
-#ifdef FREE_VERSION
-          proBtn,
-#endif
-          btn_dec, btn_inc}) {
+    for (auto btn : {deleteAllStatsBtn, deleteLastStatsBtn, settingsBtn,
+                     helpBtn, likeBtn, btn_dec, btn_inc}) {
         btn->setIconSize(QSize(btn->size().height() * iconScale,
                                btn->size().height() * iconScale));
     }
