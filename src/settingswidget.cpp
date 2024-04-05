@@ -337,8 +337,7 @@ void SettingsWidget::onThemeChange() {
     cmb_theme->setCurrentText(Settings::getTheme());
 
     cmb_tableStyle->clear();
-    for (auto &tableType : {serializeTableStyle(TableStyleT::ClassicTable),
-                            serializeTableStyle(TableStyleT::SparseTable)})
+    for (QString tableType : getTableStyleList())
         cmb_tableStyle->addItem(QIcon(":/rcc/" + Theme::getEffectiveTheme() +
                                       "/" + tableType + "_icon.png"),
                                 tableType);
@@ -346,15 +345,12 @@ void SettingsWidget::onThemeChange() {
         serializeTableStyle(Settings::getTableStyle()));
 
     cmb_centralPointStyle->clear();
-    cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/eye_icon.png"),
-        serializeCentralPointStyle(CentralPointStyleT::EyePic));
-    cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/greendot_icon.png"),
-        serializeCentralPointStyle(CentralPointStyleT::GreenDot));
-    cmb_centralPointStyle->addItem(
-        QIcon(":/rcc/" + Theme::getEffectiveTheme() + "/none_icon.png"),
-        serializeCentralPointStyle(CentralPointStyleT::None));
+    for (QString centralPointStyle : getCentralPointStyleList()) {
+        cmb_centralPointStyle->addItem(QIcon(":/rcc/" +
+                                             Theme::getEffectiveTheme() + "/" +
+                                             centralPointStyle + "_icon.png"),
+                                       centralPointStyle);
+    }
     cmb_centralPointStyle->setCurrentText(
         serializeCentralPointStyle(Settings::getCentralPointStyle()));
 }

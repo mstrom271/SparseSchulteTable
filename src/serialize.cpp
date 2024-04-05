@@ -1,35 +1,33 @@
 #include "serialize.h"
 
+QVector<QString> getTableStyleList() {
+    return QVector<QString>{"Sparse", "Classic"};
+}
+
 QString serializeTableStyle(TableStyleT TableStyle) {
-    if (TableStyle == TableStyleT::ClassicTable)
-        return "Classic";
-    else
-        return "Sparse";
+    return getTableStyleList()[static_cast<int>(TableStyle)];
 }
 
 TableStyleT deSerializeTableStyle(QString str) {
-    if (str == "Classic")
-        return TableStyleT::ClassicTable;
-    else
-        return TableStyleT::SparseTable;
+    auto index = getTableStyleList().indexOf(str);
+    if (index == -1)
+        index = 0;
+    return TableStyleT(index);
+}
+
+QVector<QString> getCentralPointStyleList() {
+    return QVector<QString>{"GreenDot", "EyePic", "None"};
 }
 
 QString serializeCentralPointStyle(CentralPointStyleT CentralPointStyle) {
-    if (CentralPointStyle == CentralPointStyleT::None)
-        return "None";
-    else if (CentralPointStyle == CentralPointStyleT::GreenDot)
-        return "GreenDot";
-    else
-        return "EyePic";
+    return getCentralPointStyleList()[static_cast<int>(CentralPointStyle)];
 }
 
 CentralPointStyleT deSerializeCentralPointStyle(QString str) {
-    if (str == "None")
-        return CentralPointStyleT::None;
-    else if (str == "GreenDot")
-        return CentralPointStyleT::GreenDot;
-    else
-        return CentralPointStyleT::EyePic;
+    auto index = getCentralPointStyleList().indexOf(str);
+    if (index == -1)
+        index = 0;
+    return CentralPointStyleT(index);
 }
 
 QString serializeTableStat(QList<int> TableStat) {

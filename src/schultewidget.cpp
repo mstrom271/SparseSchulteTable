@@ -12,9 +12,9 @@ constexpr int emptyCell = 999;
 int SchulteWidget::getQuad_side() const { return quad_side; }
 
 void SchulteWidget::onThemeChange() {
-    eyePixmap.load(":/rcc/" + Theme::getEffectiveTheme() + "/eye_icon.png");
+    eyePixmap.load(":/rcc/" + Theme::getEffectiveTheme() + "/EyePic_icon.png");
     greenDotPixmap.load(":/rcc/" + Theme::getEffectiveTheme() +
-                        "/greendot_icon.png");
+                        "/GreenDot_icon.png");
 
     if (Theme::getEffectiveTheme() == "DarkTheme") {
         cellBrush = QColor(0x1A, 0x1A, 0x1A);

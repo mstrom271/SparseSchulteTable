@@ -1,12 +1,10 @@
 #pragma once
 
+#include "serialize.h"
 #include <QFont>
 #include <QMap>
 #include <QSettings>
 #include <QVector>
-
-enum class TableStyleT { SparseTable, ClassicTable };
-enum class CentralPointStyleT { None, GreenDot, EyePic };
 
 class Settings {
     QSettings settings;

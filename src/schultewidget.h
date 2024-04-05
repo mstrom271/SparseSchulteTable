@@ -1,5 +1,6 @@
 #pragma once
 
+#include "serialize.h"
 #include "settings.h"
 #include <QPen>
 #include <QWidget>
