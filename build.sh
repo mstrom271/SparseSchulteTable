@@ -147,8 +147,10 @@ if [[ "$STAGE" == "All" ]] || [[ "$STAGE" == "Deploy" ]]; then
         "Android")
             if [[ "$BUILD_TYPE" == "Release" ]]; then
                 check_variable_existence ANDROID_KEYSTORE
-                apksigner sign --ks $ANDROID_KEYSTORE --out \
-                    $DESTINATION_DIR/android-build/${PROJECT_NAME}.apk \
+                check_variable_existence ANDROID_KEYSTORE_PASS
+                apksigner sign \
+                    --ks $ANDROID_KEYSTORE \
+                    --ks-pass pass:$ANDROID_KEYSTORE_PASS \
                     $DESTINATION_DIR/android-build/${PROJECT_NAME}.apk
             fi
             if [ -n "$ANDROID_DEVICE" ]; then
