@@ -274,7 +274,6 @@ SettingsWidget::SettingsWidget(QWidget *wgt) : QWidget(wgt) {
 }
 
 void SettingsWidget::onThemeChange() {
-#ifdef Q_OS_ANDROID
     QColor bgColor;
     QColor inversebgColor;
     if (Theme::getEffectiveTheme() == "DarkTheme") {
@@ -320,7 +319,6 @@ void SettingsWidget::onThemeChange() {
     cmb_centralPointStyle->setStyleSheet(cmbStyle);
     cmb_fontMaxSize->setStyleSheet(cmbStyle);
     cmb_tableScale->setStyleSheet(cmbStyle);
-#endif
 
     cmb_language->clear();
     for (auto &lang : Language::getLanguageList())

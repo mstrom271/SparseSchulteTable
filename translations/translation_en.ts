@@ -53,102 +53,102 @@
 <context>
     <name>SettingsWidget</name>
     <message>
-        <location filename="../src/settingswidget.cpp" line="359"/>
+        <location filename="../src/settingswidget.cpp" line="357"/>
         <source>Settings</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="361"/>
+        <location filename="../src/settingswidget.cpp" line="359"/>
         <source>Language</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="363"/>
+        <location filename="../src/settingswidget.cpp" line="361"/>
         <source>To choose a language of the application</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="365"/>
+        <location filename="../src/settingswidget.cpp" line="363"/>
         <source>Themes</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="366"/>
+        <location filename="../src/settingswidget.cpp" line="364"/>
         <source>Color of interface elements</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="368"/>
+        <location filename="../src/settingswidget.cpp" line="366"/>
         <source>Sound</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="369"/>
+        <location filename="../src/settingswidget.cpp" line="367"/>
         <source>Sound of button clicks</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="371"/>
+        <location filename="../src/settingswidget.cpp" line="369"/>
         <source>Table Style</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="372"/>
+        <location filename="../src/settingswidget.cpp" line="370"/>
         <source>Classic or Sparse table</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="374"/>
+        <location filename="../src/settingswidget.cpp" line="372"/>
         <source>Central Point</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="375"/>
+        <location filename="../src/settingswidget.cpp" line="373"/>
         <source>Point for concentration</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="377"/>
+        <location filename="../src/settingswidget.cpp" line="375"/>
         <source>Max Font</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="379"/>
+        <location filename="../src/settingswidget.cpp" line="377"/>
         <source>Table&apos;s max font in pixels. 0 is auto</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="381"/>
+        <location filename="../src/settingswidget.cpp" line="379"/>
         <source>Table Size</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="383"/>
+        <location filename="../src/settingswidget.cpp" line="381"/>
         <source>Table size in %. Useful for big screens of tablets</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="385"/>
+        <location filename="../src/settingswidget.cpp" line="383"/>
         <source>Show Timer</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="386"/>
+        <location filename="../src/settingswidget.cpp" line="384"/>
         <source>Timer during exercise</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="388"/>
+        <location filename="../src/settingswidget.cpp" line="386"/>
         <source>Keep Awake</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="390"/>
+        <location filename="../src/settingswidget.cpp" line="388"/>
         <source>Block fading of screen during exercise</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="../src/settingswidget.cpp" line="392"/>
+        <location filename="../src/settingswidget.cpp" line="390"/>
         <source>Ok</source>
         <translation>Ok</translation>
     </message>

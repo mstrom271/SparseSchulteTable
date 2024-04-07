@@ -68,13 +68,13 @@ void StatsWidget::paintEvent(QPaintEvent *event) {
             double stepX =
                 (width() - side * 2) / ((num - 1) > 0 ? (num - 1) : 1);
 
-            p.setPen(QPen(p.pen().color(), 3, Qt::DashLine));
+            p.setPen(QPen(p.pen().color(), 1, Qt::DashLine));
             p.drawLine(side, bottom, width() - side, bottom);
             p.drawLine(side, top, width() - side, top);
             p.drawLine(width() - side, top, width() - side, bottom);
             p.drawLine(side, top, side, bottom);
 
-            p.setPen(QPen(p.pen().color(), 3, Qt::SolidLine));
+            p.setPen(QPen(p.pen().color(), 1, Qt::SolidLine));
             double x = width() - side;
             for (int i = num - 1; i > 0; i--) {
                 p.drawLine(x, bottom - (stats[i] - min) * stepY, x - stepX,

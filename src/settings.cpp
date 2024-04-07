@@ -10,6 +10,8 @@
 Settings::Settings() {
     upgradeOldSettings();
 
+    settings.setValue("/Version", "0.5");
+
     FirstRun = settings.value("/FirstRun", true).toBool();
     if (FirstRun)
         settings.setValue("/FirstRun", false);
