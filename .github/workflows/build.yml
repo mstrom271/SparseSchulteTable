@@ -43,14 +43,21 @@ jobs:
         uses: actions/checkout@v4
       - name: Build
         shell: bash
+        env:
+          ANDROID_KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE_FILE }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
         run: |
           env && echo "-----------------------------"
           source config.h.sh
           export OS=Android
           export ABI=armv8
-          export BUILD_TYPE=Debug
+          export BUILD_TYPE=Release
           export STAGE=All
           export API_LEVEL=33
+          echo "${ANDROID_KEYSTORE_FILE}" | base64 --decode > /tmp/android_release.keystore
+          export ANDROID_KEYSTORE=/tmp/android_release.keystore
+          export ANDROID_KEYSTORE_PASS="${ANDROID_KEYSTORE_PASS}"
+          sudo apt-get update && sudo apt-get install -y apksigner
           ./build.sh
 
           export FINAL_NAME=${PROJECT_NAME}_${PROJECT_VERSION}_${OS}_${ABI}.apk
@@ -93,7 +100,7 @@ jobs:
           source config.h.sh
           export OS=Windows
           export ABI=x86_64
-          export BUILD_TYPE=Debug
+          export BUILD_TYPE=Release
           export STAGE=All
           ./build.sh
 
@@ -144,7 +151,7 @@ jobs:
           source config.h.sh
           export OS=Linux
           export ABI=x86_64
-          export BUILD_TYPE=Debug
+          export BUILD_TYPE=Release
           export STAGE=All
           ./build.sh
 
