@@ -48,7 +48,6 @@ jobs:
           ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
         run: |
           env && echo "-----------------------------"
-          source config.h.sh
           export OS=Android
           export ABI=armv8
           export BUILD_TYPE=Release
@@ -59,6 +58,7 @@ jobs:
           export ANDROID_KEYSTORE_PASS="${ANDROID_KEYSTORE_PASS}"
           sudo apt-get update && sudo apt-get install -y apksigner
           ./build.sh
+          source config.h.sh
           export ANDROID_KEYSTORE=""
           export ANDROID_KEYSTORE_PASS=""
 
@@ -118,8 +118,6 @@ jobs:
           ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
         run: |
           env && echo "-----------------------------"
-          source config.h.sh
-          export BUILD_NUMBER=$((BUILD_NUMBER + 1)) # hack for google play
           export OS=Android
           export ABI=x86_64
           export BUILD_TYPE=Release
@@ -129,7 +127,9 @@ jobs:
           export ANDROID_KEYSTORE_FILE=/tmp/android_release.keystore
           export ANDROID_KEYSTORE_PASS="${ANDROID_KEYSTORE_PASS}"
           sudo apt-get update && sudo apt-get install -y apksigner
+          ./build_number.sh # hack for Google Play to get different VERSION_CODE
           ./build.sh
+          source config.h.sh
           export ANDROID_KEYSTORE=""
           export ANDROID_KEYSTORE_PASS=""
 
@@ -170,12 +170,12 @@ jobs:
         shell: bash
         run: |
           env && echo "-----------------------------"
-          source config.h.sh
           export OS=Windows
           export ABI=x86_64
           export BUILD_TYPE=Release
           export STAGE=All
           ./build.sh
+          source config.h.sh
 
           export FINAL_NAME=${PROJECT_NAME}_${PROJECT_VERSION}_${OS}_${ABI}.tar.bz2
           mv ./build/${OS}/${ABI}/${BUILD_TYPE}/${PROJECT_NAME}.tar.bz2 \
@@ -220,12 +220,12 @@ jobs:
         shell: bash
         run: |
           env && echo "-----------------------------"
-          source config.h.sh
           export OS=Linux
           export ABI=x86_64
           export BUILD_TYPE=Release
           export STAGE=All
           ./build.sh
+          source config.h.sh
 
           export FINAL_NAME=${PROJECT_NAME}_${PROJECT_VERSION}_${OS}_${ABI}.AppImage
           mv ./build/${OS}/${ABI}/${BUILD_TYPE}/${PROJECT_NAME}-${ABI}.AppImage \
