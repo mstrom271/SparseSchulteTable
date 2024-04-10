@@ -149,11 +149,27 @@ if [[ "$STAGE" == "All" ]] || [[ "$STAGE" == "Deploy" ]]; then
             if [[ "$BUILD_TYPE" == "Release" ]]; then
                 check_variable_existence ANDROID_KEYSTORE_FILE
                 check_variable_existence ANDROID_KEYSTORE_PASS
+                check_variable_existence ANDROID_KEYSTORE_ALIAS
+
+                # Apk sign
                 apksigner sign \
                     --ks $ANDROID_KEYSTORE_FILE \
                     --ks-pass pass:$ANDROID_KEYSTORE_PASS \
                     $DESTINATION_DIR/android-build/${PROJECT_NAME}.apk
+
+                # # Android App Bundle create and sign
+                # androiddeployqt \
+                #     --input $DESTINATION_DIR/android-${PROJECT_NAME}-deployment-settings.json \
+                #     --output $DESTINATION_DIR/android-build/ \
+                #     --aab \
+                #     --sign $ANDROID_KEYSTORE_FILE ${ANDROID_KEYSTORE_ALIAS} \
+                #     --storepass ${ANDROID_KEYSTORE_PASS}
+                # jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+                #     -keystore $ANDROID_KEYSTORE_FILE \
+                #     $DESTINATION_DIR/android-build/build/outputs/bundle/release/android-build-release.aab \
+                #     -storepass ${ANDROID_KEYSTORE_PASS} ${ANDROID_KEYSTORE_ALIAS}
             fi
+
             if [ -n "$ANDROID_DEVICE" ]; then
                 adb -s $ANDROID_DEVICE install $DESTINATION_DIR/android-build/${PROJECT_NAME}.apk
             fi
