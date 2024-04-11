@@ -52,7 +52,7 @@ jobs:
           env && echo "-----------------------------"
 
           set +x
-          echo "${ANDROID_KEYSTORE}" | base64 --decode > /tmp/android_release.keystore
+          echo "$ANDROID_KEYSTORE" | base64 --decode > /tmp/android_release.keystore
           export ANDROID_KEYSTORE_FILE=/tmp/android_release.keystore
           export ANDROID_KEYSTORE_PASS="$ANDROID_KEYSTORE_PASS"
           export ANDROID_KEYALIAS="$ANDROID_KEYALIAS"
@@ -73,10 +73,10 @@ jobs:
           export ANDROID_KEYALIAS_PASS=""
 
           export FINAL_NAME=${PROJECT_NAME}_${PROJECT_VERSION}_${OS}_${ABI}.apk
-          mv ./build/${OS}/${ABI}/${BUILD_TYPE}/android-build/${PROJECT_NAME}.apk \
-             ./build/${OS}/${ABI}/${BUILD_TYPE}/android-build/${FINAL_NAME}
+          mv ./build/$OS/$ABI/$BUILD_TYPE/android-build/$PROJECT_NAME.apk \
+             ./build/$OS/$ABI/$BUILD_TYPE/android-build/$FINAL_NAME
 
-          printenv >> ${GITHUB_ENV}
+          printenv >> $GITHUB_ENV
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -132,7 +132,7 @@ jobs:
           env && echo "-----------------------------"
 
           set +x
-          echo "${ANDROID_KEYSTORE}" | base64 --decode > /tmp/android_release.keystore
+          echo "$ANDROID_KEYSTORE" | base64 --decode > /tmp/android_release.keystore
           export ANDROID_KEYSTORE_FILE=/tmp/android_release.keystore
           export ANDROID_KEYSTORE_PASS="$ANDROID_KEYSTORE_PASS"
           export ANDROID_KEYALIAS="$ANDROID_KEYALIAS"
@@ -154,10 +154,10 @@ jobs:
           export ANDROID_KEYALIAS_PASS=""
 
           export FINAL_NAME=${PROJECT_NAME}_${PROJECT_VERSION}_${OS}_${ABI}.apk
-          mv ./build/${OS}/${ABI}/${BUILD_TYPE}/android-build/${PROJECT_NAME}.apk \
-             ./build/${OS}/${ABI}/${BUILD_TYPE}/android-build/${FINAL_NAME}
+          mv ./build/$OS/$ABI/$BUILD_TYPE/android-build/$PROJECT_NAME.apk \
+             ./build/$OS/$ABI/$BUILD_TYPE/android-build/$FINAL_NAME
 
-          printenv >> ${GITHUB_ENV}
+          printenv >> $GITHUB_ENV
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -198,10 +198,10 @@ jobs:
           source config.h.sh
 
           export FINAL_NAME=${PROJECT_NAME}_${PROJECT_VERSION}_${OS}_${ABI}.tar.bz2
-          mv ./build/${OS}/${ABI}/${BUILD_TYPE}/${PROJECT_NAME}.tar.bz2 \
-             ./build/${OS}/${ABI}/${BUILD_TYPE}/${FINAL_NAME}
+          mv ./build/$OS/$ABI/$BUILD_TYPE/$PROJECT_NAME.tar.bz2 \
+             ./build/$OS/$ABI/$BUILD_TYPE/$FINAL_NAME
 
-          printenv >> ${GITHUB_ENV}
+          printenv >> $GITHUB_ENV
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -248,10 +248,10 @@ jobs:
           source config.h.sh
 
           export FINAL_NAME=${PROJECT_NAME}_${PROJECT_VERSION}_${OS}_${ABI}.AppImage
-          mv ./build/${OS}/${ABI}/${BUILD_TYPE}/${PROJECT_NAME}-${ABI}.AppImage \
-             ./build/${OS}/${ABI}/${BUILD_TYPE}/${FINAL_NAME}
+          mv ./build/$OS/$ABI/$BUILD_TYPE/$PROJECT_NAME-$ABI.AppImage \
+             ./build/$OS/$ABI/$BUILD_TYPE/$FINAL_NAME
 
-          printenv >> ${GITHUB_ENV}
+          printenv >> $GITHUB_ENV
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
